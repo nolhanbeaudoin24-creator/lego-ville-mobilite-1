@@ -1,0 +1,9181 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<link rel="manifest" href="manifest.json">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>LEGO Ville Mobilités</title>
+
+
+<style>
+
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+
+body{
+
+background:linear-gradient(#0057d9,#dff2ff);
+min-height:100vh;
+color:#14213d;
+
+}
+
+
+
+/* HEADER */
+
+
+.header{
+
+height:150px;
+
+background:#0755c9;
+
+color:white;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+padding:20px;
+
+}
+
+
+
+.menu{
+
+font-size:40px;
+
+cursor:pointer;
+
+}
+
+
+
+.logo{
+
+text-align:center;
+
+font-size:32px;
+
+font-weight:bold;
+
+}
+
+
+
+.icons{
+
+font-size:30px;
+
+}
+
+
+
+/* CARTES */
+
+
+.card{
+
+background:white;
+
+margin:18px;
+
+border-radius:25px;
+
+padding:20px;
+
+box-shadow:0 5px 15px #0002;
+
+}
+
+
+
+h2{
+
+margin-bottom:20px;
+
+}
+
+
+
+/* CHAMPS */
+
+
+.input{
+
+border:1px solid #ddd;
+
+border-radius:15px;
+
+padding:18px;
+
+margin:12px 0;
+
+font-size:18px;
+
+}
+
+select.input{
+width:100%;
+height:60px;
+background:white;
+color:#14213d;
+border:1px solid #ddd;
+border-radius:15px;
+padding:10px 15px;
+font-size:18px;
+}
+
+/* BOUTON */
+
+
+button{
+
+background:#0755c9;
+
+color:white;
+
+border:none;
+
+border-radius:15px;
+
+padding:18px;
+
+width:100%;
+
+font-size:18px;
+
+font-weight:bold;
+
+}
+
+
+
+/* FAVORIS */
+
+
+.favoris{
+
+display:flex;
+
+gap:10px;
+
+}
+
+
+
+.fav{
+
+flex:1;
+
+padding:15px;
+
+border:1px solid #ddd;
+
+border-radius:15px;
+
+text-align:center;
+
+}
+
+
+
+/* MENU LATERAL */
+
+
+.menuPanel{
+
+position:fixed;
+
+top:0;
+
+left:-300px;
+
+width:280px;
+
+height:100%;
+
+background:white;
+
+z-index:1000;
+
+transition:0.3s;
+
+box-shadow:5px 0 15px #0004;
+
+padding:20px;
+
+}
+
+
+
+.menuPanel.ouvert{
+
+left:0;
+
+}
+
+
+
+.menuTitre{
+
+font-size:24px;
+
+font-weight:bold;
+
+margin-bottom:25px;
+
+}
+
+
+
+.menuItem{
+
+padding:18px;
+
+border-bottom:1px solid #ddd;
+
+font-size:18px;
+
+}
+
+
+
+.fermer{
+
+font-size:25px;
+
+text-align:right;
+
+cursor:pointer;
+
+}
+
+.boutonFavori{
+
+background:white;
+color:#0755c9;
+border:2px solid #0755c9;
+border-radius:15px;
+padding:12px;
+margin-top:10px;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+.ligneC1{
+background:#e5e5e5;
+color:#14213d;
+}
+
+.ligneT1{
+background:#22a447;
+color:white;
+}
+
+.ligneT2{
+background:#e53935;
+color:white;
+}
+
+.ligneT3{
+background:#0755a5;
+color:white;
+}
+
+.ligneT4{
+background:#8e44ad;
+color:white;
+}
+
+.ligneBus{
+    margin:18px;
+    border-radius:25px;
+    padding:20px;
+    box-shadow:0 5px 15px #0003;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* 🚌 Couleurs des lignes de bus */
+
+.busE1{
+    background:#0755a5;
+    color:white;
+}
+
+.busE2{
+    background:#f28c28;
+    color:white;
+}
+
+.busE3{
+    background:#7bd66f;
+    color:#14213d;
+}
+
+.busE4{
+    background:#8e44ad;
+    color:white;
+}
+
+.busE5{
+    background:#e88ab5;
+    color:#14213d;
+}
+
+.busE6{
+    background:#f4d03f;
+    color:#14213d;
+}
+
+.busE7{
+    background:#63b5ff;
+    color:#14213d;
+}
+
+.bus8,
+.bus8G{
+    background:#20bfa9;
+    color:white;
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+<div class="header">
+
+
+<div class="menu" onclick="ouvrirMenu()">
+
+☰
+
+</div>
+
+
+<div class="logo">
+
+LEGO Ville Mobilités
+
+<br>
+
+🚍 🚋 🚠
+
+</div>
+
+
+<div class="icons" onclick="ouvrirNotifications()" style="
+    position:relative;
+    cursor:pointer;
+">
+
+    🔔
+
+    <span id="badgeNotifications" style="
+        position:absolute;
+        top:-8px;
+        right:-8px;
+        background:#e53935;
+        color:white;
+        font-size:12px;
+        font-weight:bold;
+        min-width:20px;
+        height:20px;
+        border-radius:50%;
+        display:none;
+        align-items:center;
+        justify-content:center;
+    ">0</span>
+
+</div>
+
+</div>
+
+<!-- RECHERCHE ITINERAIRE -->
+
+
+<div class="card">
+
+
+<h2>
+
+🔎 Où allez-vous ?
+
+</h2>
+
+
+
+<select id="depart" class="input">
+
+<option value="">
+🟢 Départ : Choisissez un arrêt
+</option>
+
+<option value="Lego Ville Aéroport">✈️ Lego Ville Aéroport</option>
+<option value="Aquarium Cézembre">🐠 Aquarium Cézembre</option>
+<option value="Quartier futuriste">🏙️ Quartier futuriste</option>
+<option value="Gare SNCF">🚉 Gare SNCF</option>
+<option value="Gare routière">🚌 Gare routière</option>
+<option value="Le Phare">⚓ Le Phare</option>
+<option value="La Plage Ouest">🏖️ La Plage Ouest</option>
+<option value="La Plage Est">🏖️ La Plage Est</option>
+<option value="Lego Ville Parc d’attractions">🎢 Lego Ville Parc d’attractions</option>
+<option value="Lego Ville École">🏫 Lego Ville École</option>
+<option value="Lego Ville Hôpital">🏥 Lego Ville Hôpital</option>
+<option value="Centre commercial">🏬 Centre commercial</option>
+
+</select>
+
+
+<select id="arrivee" class="input">
+
+<option value="">
+📍 Arrivée : Choisissez un arrêt
+</option>
+
+<option value="Lego Ville Aéroport">✈️ Lego Ville Aéroport</option>
+<option value="Aquarium Cézembre">🐠 Aquarium Cézembre</option>
+<option value="Quartier futuriste">🏙️ Quartier futuriste</option>
+<option value="Gare SNCF">🚉 Gare SNCF</option>
+<option value="Gare routière">🚌 Gare routière</option>
+<option value="Le Phare">⚓ Le Phare</option>
+<option value="La Plage Ouest">🏖️ La Plage Ouest</option>
+<option value="La Plage Est">🏖️ La Plage Est</option>
+<option value="Lego Ville Parc d’attractions">🎢 Lego Ville Parc d’attractions</option>
+<option value="Lego Ville École">🏫 Lego Ville École</option>
+<option value="Lego Ville Hôpital">🏥 Lego Ville Hôpital</option>
+<option value="Centre commercial">🏬 Centre commercial</option>
+
+</select>
+
+
+<button onclick="rechercherItineraire()">
+    🔎 Rechercher un itinéraire
+</button>
+
+<div
+id="resultatItineraire"
+style="margin-top:15px;">
+</div>
+
+</div>
+
+
+
+
+
+
+<!-- 🌐 RESERVATION TAD -->
+
+<div class="card">
+
+<h2>
+🌐 Réserver un TAD
+</h2>
+
+
+<!-- 📍 DÉPART -->
+
+<select id="tadDepart" class="input">
+
+<option value="">
+📍 Départ : Choisir un arrêt
+</option>
+
+<option value="Gare routière">
+Gare routière
+</option>
+
+<option value="Gare SNCF">
+Gare SNCF
+</option>
+
+<option value="La Plage Ouest">
+La Plage Ouest
+</option>
+
+<option value="La Plage Est">
+La Plage Est
+</option>
+
+<option value="Parc d’attractions">
+Parc d’attractions
+</option>
+
+<option value="Centre commercial">
+Centre commercial
+</option>
+
+<option value="Lego Ville Hôpital">
+Lego Ville Hôpital
+</option>
+
+<option value="Lego Ville Aéroport">
+Lego Ville Aéroport
+</option>
+
+<option value="Le Phare">
+Le Phare
+</option>
+
+<option value="Aquarium Cézembre">
+Aquarium Cézembre
+</option>
+
+<option value="Quartier futuriste">
+Quartier futuriste
+</option>
+
+</select>
+
+
+<!-- 📍 ARRIVÉE -->
+
+<select id="tadArrivee" class="input">
+
+<option value="">
+📍 Arrivée : Choisir un arrêt
+</option>
+
+<option value="Gare routière">
+Gare routière
+</option>
+
+<option value="Gare SNCF">
+Gare SNCF
+</option>
+
+<option value="La Plage Ouest">
+La Plage Ouest
+</option>
+
+<option value="La Plage Est">
+La Plage Est
+</option>
+
+<option value="Parc d’attractions">
+Parc d’attractions
+</option>
+
+<option value="Centre commercial">
+Centre commercial
+</option>
+
+<option value="Lego Ville Hôpital">
+Lego Ville Hôpital
+</option>
+
+<option value="Lego Ville Aéroport">
+Lego Ville Aéroport
+</option>
+
+<option value="Le Phare">
+Le Phare
+</option>
+
+<option value="Aquarium Cézembre">
+Aquarium Cézembre
+</option>
+
+<option value="Quartier futuriste">
+Quartier futuriste
+</option>
+
+</select>
+
+
+<!-- 📅 DATE -->
+
+<div style="margin-top:12px;">
+
+<label style="
+display:block;
+font-size:18px;
+font-weight:bold;
+margin-bottom:8px;
+">
+
+📅 Date
+
+</label>
+
+<input
+type="date"
+id="tadDate"
+class="input"
+style="width:100%;"
+>
+
+</div>
+
+
+<!-- 🕒 HEURE -->
+
+<div style="margin-top:12px;">
+
+<label style="
+display:block;
+font-size:18px;
+font-weight:bold;
+margin-bottom:8px;
+">
+
+🕒 Heure
+
+</label>
+
+<input
+type="time"
+id="tadHeure"
+class="input"
+style="width:100%;"
+>
+
+</div>
+
+
+<!-- 🚕 RÉSERVATION -->
+
+<button
+onclick="reservationTAD()"
+style="margin-top:15px;"
+>
+
+🚕 Réserver mon trajet
+
+</button>
+
+
+<!-- 📋 RÉSULTAT -->
+
+<div
+id="resultatTAD"
+style="margin-top:15px;"
+>
+</div>
+
+
+</div>
+<!-- FAVORIS -->
+
+
+<div class="card">
+
+
+<h2>
+
+⭐ Mes favoris
+
+</h2>
+
+
+
+<div class="favoris">
+
+
+<div class="fav" id="listeFavoris">
+
+⭐
+
+<br>
+
+Aucune ligne favorite
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+
+<!-- TRAFIC -->
+
+<div class="card" id="traficFavoris">
+
+<h2>
+⚠️ Infos trafic de mes lignes
+</h2>
+
+
+<p>
+Ajoutez des lignes en favoris ⭐
+pour voir leur trafic.
+</p>
+
+
+</div>
+
+<!-- MENU LATERAL -->
+
+
+<div id="menuPanel" class="menuPanel">
+
+
+<div class="fermer" onclick="fermerMenu()">
+
+✖️
+
+</div>
+
+
+
+<div class="menuTitre">
+
+🚍 LEGO Ville Mobilités
+
+</div>
+
+
+
+<div class="menuItem" onclick="ouvrirAccueil()">
+
+    🏠 Accueil
+
+</div>
+
+
+
+<div class="menuItem" onclick="ouvrirHoraires()">
+
+🕒 Horaires
+
+</div>
+
+
+
+<div class="menuItem" onclick="ouvrirBusExpress()">
+
+🚎 Bus Express
+
+</div>
+
+
+<div class="menuItem" onclick="ouvrirBus()">
+
+🚌 Bus
+
+</div>
+
+
+
+<div class="menuItem" onclick="ouvrirRapide()">
+
+⚡ Ligne rapide
+
+</div>
+
+
+
+<div class="menuItem"
+     onclick="ouvrirNavettes()">
+
+    🚕 Navettes
+
+</div>
+
+
+<div class="menuItem" onclick="ouvrirTrafic()">
+
+⚠️ Infos trafic
+
+</div>
+
+<div class="menuItem" onclick="ouvrirNouveautes()">
+
+🆕 Nouveautés
+
+</div>
+
+
+<div class="menuItem" onclick="afficherMeteo()">
+
+🌦️ Météo
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+function ouvrirMenu(){
+
+document.getElementById("menuPanel")
+.classList.add("ouvert");
+
+}
+
+
+
+function fermerMenu(){
+
+document.getElementById("menuPanel")
+.classList.remove("ouvert");
+
+}
+
+/* =================================
+   🔔 NOTIFICATIONS
+   ================================= */
+
+function ouvrirNotifications(){
+
+    document.getElementById("menuPanel")
+    .classList.remove("ouvert");
+
+    document.body.innerHTML = `
+
+    <div class="card">
+
+        <button onclick="location.reload()">
+            ✖️ Retour
+        </button>
+
+        <h2 style="margin-top:20px;">
+            🔔 Notifications
+        </h2>
+
+
+     
+        <!-- 🕒 NOTIFICATION HORAIRES -->
+
+        <div class="ligneBus">
+
+            <h3>
+                🕒 Horaires
+            </h3>
+
+            <p style="
+                margin-top:10px;
+                font-weight:normal;
+            ">
+                📢 Les horaires de LEGO Ville
+                Mobilités sont disponibles.
+            </p>
+
+        </div>
+
+
+        <button
+        onclick="location.reload()"
+        style="
+            margin-top:10px;
+        ">
+
+            ✅ Marquer comme lu
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+/* =================================
+   🗺️ RÉSEAU COMPLET — ITINÉRAIRE
+   ================================= */
+
+const reseauItineraire = {
+
+
+
+    /* 🚠 C1 */
+    "C1 🚠": [
+        "Gare routière",
+        "Gare SNCF"
+    ],
+
+    /* 🟢 T1 */
+    "T1 🟢": [
+        "Gare routière",
+        "La Plage Ouest",
+        "Lego Ville Parc d’attractions"
+    ],
+
+    /* 🔴 T2 */
+    "T2 🔴": [
+        "Gare SNCF",
+        "Centre commercial",
+        "Lego Ville Aéroport"
+    ],
+
+    /* 🔵 T3 */
+    "T3 🔵": [
+        "Gare SNCF",
+        "Quartier futuriste",
+        "Aquarium Cézembre"
+    ],
+
+    /* 🟣 T4 */
+    "T4 🟣": [
+        "Lego Ville Hôpital",
+        "Gare SNCF",
+        "La Plage Est"
+    ],
+
+    /* ♐ E1 */
+    "E1 ♐": [
+        "Lego Ville Aéroport",
+        "Aquarium Cézembre",
+        "Quartier futuriste",
+        "Gare SNCF",
+        "Le Phare",
+        "La Plage Ouest"
+    ],
+
+    /* ♊ E2 */
+    "E2 ♊": [
+        "Lego Ville École",
+        "Le Phare",
+        "Gare SNCF",
+        "Lego Ville Hôpital"
+    ],
+
+    /* ♍ E3 */
+    "E3 ♍": [
+        "Lego Ville Parc d’attractions",
+        "Le Phare",
+        "Gare routière",
+        "Gare SNCF",
+        "La Plage Est"
+    ],
+
+    /* ♒ E4 */
+    "E4 ♒": [
+        "Lego Ville Aéroport",
+        "Centre commercial",
+        "Lego Ville Hôpital"
+    ],
+
+    /* ♓ E5 */
+    "E5 ♓": [
+        "La Plage Est",
+        "Gare SNCF",
+        "Lego Ville Hôpital"
+    ],
+
+    /* ♋ E6 */
+    "E6 ♋": [
+        "Lego Ville Parc d’attractions",
+        "La Plage Ouest",
+        "Gare routière",
+        "Gare SNCF",
+        "La Plage Est"
+    ],
+
+    /* ⛎ E7 */
+    "E7 ⛎": [
+        "Aquarium Cézembre",
+        "Quartier futuriste",
+        "Gare SNCF",
+        "Gare routière",
+        "Le Phare",
+        "La Plage Ouest",
+        "Lego Ville Parc d’attractions"
+    ],
+
+    /* ♂️ 8 */
+    "8 ♂️": [
+        "Le Phare",
+        "Lego Ville Parc d’attractions",
+        "La Plage Ouest",
+        "Gare routière",
+        "Gare SNCF",
+        "Lego Ville Hôpital"
+    ],
+
+    /* ♂️ 8G */
+    "8G ♂️": [
+        "Le Phare",
+        "Gare routière",
+        "Gare SNCF",
+        "La Plage Est",
+        "Quartier futuriste",
+        "Aquarium Cézembre"
+    ]
+
+};
+
+
+
+function reservationTAD(){
+
+alert(
+"🌐 Votre demande de réservation TAD a été enregistrée !"
+);
+
+}
+
+let sensC1Inverse = false;
+
+let sensT1Inverse = false;
+
+let sensT2Inverse = false;
+
+let sensT3Inverse = false;
+
+let sensT4Inverse = false;
+
+let sens8Inverse = false;
+
+let sens8GInverse = false;
+
+let sensE1Inverse = false;
+
+let sensE2Inverse = false;
+
+let sensE3Inverse = false;
+
+let sensE4Inverse = false;
+
+let sensE5Inverse = false;
+
+let sensE6Inverse = false;
+
+let sensE7Inverse = false;
+
+function afficherHorairesC1(){
+
+    let horaire = document.getElementById("horaireC1");
+
+    if(!horaire){
+        return;
+    }
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+    // Prochain départ toutes les 5 minutes
+    let prochainDepart =
+        Math.ceil(minutesActuelles / 5) * 5;
+
+    let arrivee = prochainDepart + 2;
+
+    let heureDepart =
+        Math.floor(prochainDepart / 60) % 24;
+
+    let minuteDepart =
+        prochainDepart % 60;
+
+    let heureArrivee =
+        Math.floor(arrivee / 60) % 24;
+
+    let minuteArrivee =
+        arrivee % 60;
+
+    horaire.innerHTML =
+        "🕐 Départ : " +
+        String(heureDepart).padStart(2,"0") +
+        "h" +
+        String(minuteDepart).padStart(2,"0") +
+        "<br>" +
+        "🏁 Arrivée : " +
+        String(heureArrivee).padStart(2,"0") +
+        "h" +
+        String(minuteArrivee).padStart(2,"0");
+
+}
+
+function changerSensC1(){
+
+    let sens = document.getElementById("sensC1");
+
+    if(!sens){
+        return;
+    }
+
+    sensC1Inverse = !sensC1Inverse;
+
+    if(sensC1Inverse){
+
+        sens.innerHTML =
+        "Gare routière → Gare SNCF";
+
+    }else{
+
+        sens.innerHTML =
+        "Gare SNCF → Gare routière";
+
+    }
+
+}
+
+function changerSensT1(){
+
+    let sens = document.getElementById("sensT1");
+
+    if(!sens){
+        return;
+    }
+
+    sensT1Inverse = !sensT1Inverse;
+
+    if(sensT1Inverse){
+
+        sens.innerHTML =
+        "Parc d’attractions → La Plage Ouest → Gare routière";
+
+    }else{
+
+        sens.innerHTML =
+        "Gare routière → La Plage Ouest → Parc d’attractions";
+
+    }
+
+}
+
+function changerSensT2(){
+
+    let sens = document.getElementById("sensT2");
+
+    if(!sens){
+        return;
+    }
+
+    sensT2Inverse = !sensT2Inverse;
+
+    if(sensT2Inverse){
+
+        sens.innerHTML =
+        "Lego Ville Aéroport → Centre commercial → Gare SNCF";
+
+    }else{
+
+        sens.innerHTML =
+        "Gare SNCF → Centre commercial → Lego Ville Aéroport";
+
+    }
+
+}
+
+function changerSensT3(){
+
+    let sens = document.getElementById("sensT3");
+
+    if(!sens){
+        return;
+    }
+
+    sensT3Inverse = !sensT3Inverse;
+
+    if(sensT3Inverse){
+
+        sens.innerHTML =
+        "Aquarium Cézembre → Quartier futuriste → Gare SNCF";
+
+    }else{
+
+        sens.innerHTML =
+        "Gare SNCF → Quartier futuriste → Aquarium Cézembre";
+
+    }
+
+}
+
+function changerSensT4(){
+
+    let sens = document.getElementById("sensT4");
+
+    if(!sens){
+        return;
+    }
+
+    sensT4Inverse = !sensT4Inverse;
+
+    if(sensT4Inverse){
+
+        sens.innerHTML =
+        "La Plage Est → Gare SNCF → Lego Ville Hôpital";
+
+    }else{
+
+        sens.innerHTML =
+        "Lego Ville Hôpital → Gare SNCF → La Plage Est";
+
+    }
+
+}
+
+function changerSens8(){
+
+    let sens = document.getElementById("sens8");
+
+    if(!sens){
+        return;
+    }
+
+    sens8Inverse = !sens8Inverse;
+
+    if(sens8Inverse){
+
+        sens.innerHTML =
+        "Lego Ville Hôpital → Gare SNCF → Gare routière → La Plage Ouest → Lego Ville Parc d’attractions → Le Phare";
+
+    }else{
+
+        sens.innerHTML =
+        "Le Phare → Lego Ville Parc d’attractions → La Plage Ouest → Gare routière → Gare SNCF → Lego Ville Hôpital";
+
+    }
+
+}
+
+function changerSens8G(){
+
+    let sens = document.getElementById("sens8G");
+
+    if(!sens){
+        return;
+    }
+
+    sens8GInverse = !sens8GInverse;
+
+    if(sens8GInverse){
+
+        sens.innerHTML =
+        "Aquarium Cézembre → Quartier futuriste → La Plage Est → Gare SNCF → Gare routière → Le Phare";
+
+    }else{
+
+        sens.innerHTML =
+        "Le Phare → Gare routière → Gare SNCF → La Plage Est → Quartier futuriste → Aquarium Cézembre";
+
+    }
+
+}
+
+function changerSensE1(){
+
+    let sens = document.getElementById("sensE1");
+
+    if(!sens){
+        return;
+    }
+
+    sensE1Inverse = !sensE1Inverse;
+
+    if(sensE1Inverse){
+
+        sens.innerHTML =
+        "🏖️ La Plage Ouest → 🏙️ Quartier futuriste → 🐠 Aquarium Cézembre → ✈️ Lego Ville Aéroport";
+
+    }else{
+
+        sens.innerHTML =
+        "✈️ Lego Ville Aéroport → 🐠 Aquarium Cézembre → 🏙️ Quartier futuriste → 🏖️ La Plage Ouest";
+
+    }
+
+}
+
+function changerSensE2(){
+
+    let sens = document.getElementById("sensE2");
+
+    if(!sens){
+        return;
+    }
+
+    sensE2Inverse = !sensE2Inverse;
+
+    if(sensE2Inverse){
+
+        sens.innerHTML =
+        "Lego Ville Hôpital → Gare SNCF → Le Phare → Lego Ville École";
+
+    }else{
+
+        sens.innerHTML =
+        "Lego Ville École → Le Phare → Gare SNCF → Lego Ville Hôpital";
+
+    }
+
+}
+
+function changerSensE3(){
+
+    let sens = document.getElementById("sensE3");
+
+    if(!sens){
+        return;
+    }
+
+    sensE3Inverse = !sensE3Inverse;
+
+    if(sensE3Inverse){
+
+        sens.innerHTML =
+        "La Plage Est → Gare SNCF → Gare routière → Le Phare → Lego Ville Parc d’attractions";
+
+    }else{
+
+        sens.innerHTML =
+        "Lego Ville Parc d’attractions → Le Phare → Gare routière → Gare SNCF → La Plage Est";
+
+    }
+
+}
+
+function changerSensE4(){
+
+    let sens = document.getElementById("sensE4");
+
+    if(!sens){
+        return;
+    }
+
+    sensE4Inverse = !sensE4Inverse;
+
+    if(sensE4Inverse){
+
+        sens.innerHTML =
+        "Lego Ville Aéroport → Centre commercial → Gare SNCF → Lego Ville Hôpital";
+
+    }else{
+
+        sens.innerHTML =
+        "Lego Ville Hôpital → Gare SNCF → Centre commercial → Lego Ville Aéroport";
+
+    }
+
+}
+
+function changerSensE5(){
+
+    let sens = document.getElementById("sensE5");
+
+    if(!sens){
+        return;
+    }
+
+    sensE5Inverse = !sensE5Inverse;
+
+    if(sensE5Inverse){
+
+        sens.innerHTML =
+        "Lego Ville Hôpital → Gare SNCF → La Plage Est";
+
+    }else{
+
+        sens.innerHTML =
+        "La Plage Est → Gare SNCF → Lego Ville Hôpital";
+
+    }
+
+}
+
+function changerSensE6(){
+
+    let sens = document.getElementById("sensE6");
+
+    if(!sens){
+        return;
+    }
+
+    sensE6Inverse = !sensE6Inverse;
+
+    if(sensE6Inverse){
+
+        sens.innerHTML =
+        "La Plage Est → Gare SNCF → Gare routière → La Plage Ouest → Lego Ville Parc d’attractions";
+
+    }else{
+
+        sens.innerHTML =
+        "Lego Ville Parc d’attractions → La Plage Ouest → Gare routière → Gare SNCF → La Plage Est";
+
+    }
+
+}
+
+function changerSensE7(){
+
+    let sens = document.getElementById("sensE7");
+
+    if(!sens){
+        return;
+    }
+
+    sensE7Inverse = !sensE7Inverse;
+
+    if(sensE7Inverse){
+
+        sens.innerHTML =
+        "Lego Ville Parc d’attractions → La Plage Ouest → Le Phare → Gare routière → Gare SNCF → Quartier futuriste → Aquarium Cézembre";
+
+    }else{
+
+        sens.innerHTML =
+        "Aquarium Cézembre → Quartier futuriste → Gare SNCF → Gare routière → Le Phare → La Plage Ouest → Lego Ville Parc d’attractions";
+
+    }
+
+}
+
+function ouvrirRapide(){
+
+document.getElementById("menuPanel")
+.classList.remove("ouvert");
+
+
+document.body.innerHTML=`
+
+<div class="card">
+
+<button onclick="location.reload()">
+
+✖️ Retour
+
+</button>
+
+
+<h2>
+
+⚡ Ligne rapide
+
+</h2>
+
+
+
+
+<div class="ligneBus ligneT1">
+
+<h3>T1 🟢</h3>
+
+<p id="sensT1">
+Gare routière → La Plage Ouest → Parc d’attractions
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('T1 🟢')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensT1()"
+style="
+background:white;
+color:#22a447;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+
+<div class="ligneBus ligneT2">
+
+<h3>T2 🔴</h3>
+
+<p id="sensT2">
+Gare SNCF → Centre commercial → Lego Ville Aéroport
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('T2 🔴')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensT2()"
+style="
+background:white;
+color:#e53935;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+
+<div class="ligneBus ligneT3">
+
+<h3>T3 🔵</h3>
+
+<p id="sensT3">
+Gare SNCF → Quartier futuriste → Aquarium Cézembre
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('T3 🔵')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensT3()"
+style="
+background:white;
+color:#0755a5;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+
+<div class="ligneBus ligneT4">
+
+<h3>T4 🟣</h3>
+
+<p id="sensT4">
+Lego Ville Hôpital → Gare SNCF → La Plage Est
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('T4 🟣')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensT4()"
+style="
+background:white;
+color:#8e44ad;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+<div class="ligneBus ligneC1">
+
+<h3>C1 🚠</h3>
+
+<p id="sensC1">
+Gare routière ↔ Gare SNCF
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('C1 🚠')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensC1()"
+style="
+background:white;
+color:#14213d;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+
+`;
+
+}
+
+let mesFavoris = JSON.parse(localStorage.getItem("favoris")) || [];
+
+
+function ajouterFavori(ligne){
+
+if(!mesFavoris.includes(ligne)){
+
+mesFavoris.push(ligne);
+
+localStorage.setItem(
+"favoris",
+JSON.stringify(mesFavoris)
+);
+
+alert("⭐ "+ligne+" ajouté aux favoris");
+
+}
+
+else{
+
+alert("⭐ "+ligne+" est déjà dans vos favoris");
+
+}
+
+}
+
+
+
+function afficherFavoris(){
+
+let bloc=document.getElementById("listeFavoris");
+
+
+if(mesFavoris.length==0){
+
+bloc.innerHTML="⭐<br>Aucune ligne favorite";
+
+return;
+
+}
+
+
+let texte="";
+
+
+mesFavoris.forEach(function(ligne){
+
+texte+=`
+
+<div class="ligne">
+
+${ligne}
+
+</div>
+
+`;
+
+});
+
+
+
+
+bloc.innerHTML=texte;
+
+}
+
+
+
+afficherFavoris();
+
+function afficherTrafic(){
+
+    let bloc = document.getElementById("traficFavoris");
+
+    if(!bloc){
+        return;
+    }
+
+    if(mesFavoris.length === 0){
+
+        bloc.innerHTML = `
+
+        <h2>
+        ⚠️ Infos trafic de mes lignes
+        </h2>
+
+        <p>
+        Ajoutez des lignes en favoris ⭐
+        pour voir leur trafic.
+        </p>
+
+        `;
+
+        return;
+    }
+
+    let texte = "";
+
+    mesFavoris.forEach(function(ligne){
+
+        /* Retirer le symbole pour récupérer le nom de la ligne */
+
+        let nomLigne = ligne.split(" ")[0];
+
+        let etat = recupererTrafic(nomLigne);
+
+        texte += `
+
+        <div class="fav">
+
+            <strong>
+            ${ligne}
+            </strong>
+
+            <br><br>
+
+            ${etat}
+
+        </div>
+
+        `;
+
+    });
+
+
+    bloc.innerHTML = `
+
+    <h2>
+    ⚠️ Infos trafic de mes lignes
+    </h2>
+
+    ${texte}
+
+    `;
+
+}
+
+afficherTrafic();
+
+function afficherHorairesC1(){
+
+    let bloc = document.getElementById("horaireC1");
+
+    if(!bloc){
+        return;
+    }
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+
+    /* =================================
+       🚠 C1 — CHANGEMENT DE SENS
+       ================================= */
+
+    if(typeof afficherHorairesC1.sens === "undefined"){
+        afficherHorairesC1.sens = "SNCF";
+    }
+
+
+    /* =================================
+       🕒 CALCUL DU PROCHAIN DÉPART
+       ================================= */
+
+    let prochain = null;
+
+
+    if(afficherHorairesC1.sens === "SNCF"){
+
+        /*
+         🚉 Gare SNCF → 🚍 Gare routière
+         Premier départ : 04h15
+         Dernier départ : 00h35
+         Toutes les 5 minutes
+        */
+
+        if(minutesActuelles < 255){
+
+            prochain = 255;
+
+        }else if(minutesActuelles <= 1435){
+
+            prochain =
+                Math.ceil(minutesActuelles / 5) * 5;
+
+            if(prochain > 1435){
+                prochain = null;
+            }
+
+        }
+
+    }else{
+
+        /*
+         🚍 Gare routière → 🚉 Gare SNCF
+         Premier départ : 04h18
+         Dernier départ : 00h38
+         Toutes les 5 minutes
+        */
+
+        if(minutesActuelles < 258){
+
+            prochain = 258;
+
+        }else if(minutesActuelles <= 1438){
+
+            prochain =
+                258 +
+                Math.ceil(
+                    (minutesActuelles - 258) / 5
+                ) * 5;
+
+            if(prochain > 1438){
+                prochain = null;
+            }
+
+        }
+
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE
+       ================================= */
+
+    if(prochain === null){
+
+        bloc.innerHTML = `
+
+        <div style="
+        background:white;
+        color:#14213d;
+        padding:15px;
+        border-radius:15px;
+        margin-top:10px;
+        ">
+
+            <h3>🌙 Fin du service</h3>
+
+            <p>
+            Prochain service : 4h15
+            </p>
+
+            <button
+            onclick="
+            afficherHorairesC1.sens =
+            afficherHorairesC1.sens === 'SNCF'
+            ? 'ROUTIERE'
+            : 'SNCF';
+
+            afficherHorairesC1();
+            "
+            style="
+            background:#eeeeee;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            ?? Changer de sens
+
+            </button>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* =================================
+       🕒 FORMATAGE
+       ================================= */
+
+    function heureC1(total){
+
+        let h =
+            Math.floor(total / 60);
+
+        let m =
+            total % 60;
+
+        if(h >= 24){
+            h -= 24;
+        }
+
+        return (
+            String(h).padStart(2,"0")
+            + ":"
+            + String(m).padStart(2,"0")
+        );
+
+    }
+
+
+    let arrivee =
+        prochain + 2;
+
+
+    let depart;
+    let arriveeNom;
+
+
+    if(afficherHorairesC1.sens === "SNCF"){
+
+        depart = "🚉 Gare SNCF";
+        arriveeNom = "🚍 Gare routière";
+
+    }else{
+
+        depart = "🚍 Gare routière";
+        arriveeNom = "🚉 Gare SNCF";
+
+    }
+
+
+    /* =================================
+       🚠 AFFICHAGE
+       ================================= */
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Prochain passage</h3>
+
+        <br>
+
+        <p>
+        
+<strong>C1</strong>
+        </p>
+
+        <br>
+
+        <p>
+        <strong>${depart}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureC1(prochain)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arriveeNom}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureC1(arrivee)}
+        </strong>
+
+        <p style="margin-top:12px;">
+        ⏱️ Trajet : 2 minutes
+        </p>
+
+        <p>
+        🚠 Toutes les 5 minutes
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesC1.sens =
+        afficherHorairesC1.sens === 'SNCF'
+        ? 'ROUTIERE'
+        : 'SNCF';
+
+        afficherHorairesC1();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHorairesT1(){
+
+    let bloc = document.getElementById("horaireT1");
+
+    if(!bloc){
+        return;
+    }
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+    let jour = maintenant.getDay();
+
+
+    /* =================================
+       🟢 T1 — CHANGEMENT DE SENS
+       ================================= */
+
+    if(typeof afficherHorairesT1.sens === "undefined"){
+        afficherHorairesT1.sens = "GARE";
+    }
+
+
+    /* =================================
+       🕒 CALCUL DU PROCHAIN DÉPART
+       ================================= */
+
+    let prochain = null;
+
+
+    /* =================================
+       ☀️ DIMANCHE
+       ================================= */
+
+    if(jour === 0){
+
+        /* =================================
+           🚏 GARE ROUTIÈRE → PARC
+           Premier départ : 07h45
+           ================================= */
+
+        if(afficherHorairesT1.sens === "GARE"){
+
+            let departBase = 7 * 60 + 45; // 07h45
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                /* 07h45 → 13h00
+                   Toutes les 40 minutes */
+
+                if(minutesActuelles < 780){
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 40
+                        ) * 40;
+
+                }else{
+
+                    /* 13h00 → fin
+                       Toutes les 24 minutes */
+
+                    let baseApresMidi = 780;
+
+                    prochain =
+                        baseApresMidi +
+                        Math.ceil(
+                            (minutesActuelles - baseApresMidi) / 24
+                        ) * 24;
+
+                }
+
+            }
+
+        }else{
+
+
+        /* =================================
+           🎢 PARC → GARE ROUTIÈRE
+           Premier départ : 07h56
+           ================================= */
+
+            let departBase = 7 * 60 + 56; // 07h56
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                /* 07h56 → 13h00
+                   Toutes les 40 minutes */
+
+                if(minutesActuelles < 780){
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 40
+                        ) * 40;
+
+                }else{
+
+                    /* 13h00 → fin
+                       Toutes les 24 minutes */
+
+                    let baseApresMidi = 780;
+
+                    prochain =
+                        baseApresMidi +
+                        Math.ceil(
+                            (minutesActuelles - baseApresMidi) / 24
+                        ) * 24;
+
+                }
+
+            }
+
+        }
+
+
+        /* =================================
+           🌙 FIN DU SERVICE DIMANCHE
+           ================================= */
+
+        if(prochain === null){
+
+            bloc.innerHTML = `
+
+            <div style="
+            background:white;
+            color:#14213d;
+            padding:15px;
+            border-radius:15px;
+            margin-top:10px;
+            ">
+
+                <h3>🌙 Fin du service</h3>
+
+                <p>
+                Prochain service : dimanche à 07h45
+                </p>
+
+                <button
+                onclick="
+                afficherHorairesT1.sens =
+                afficherHorairesT1.sens === 'GARE'
+                ? 'PARC'
+                : 'GARE';
+
+                afficherHorairesT1();
+                "
+                style="
+                background:#eeeeee;
+                color:#14213d;
+                padding:9px 14px;
+                border:none;
+                border-radius:10px;
+                margin-top:10px;
+                ">
+
+                🔄 Changer de sens
+
+                </button>
+
+            </div>
+
+            `;
+
+            return;
+        }
+
+
+    }else{
+
+
+    /* =================================
+       📅 LUNDI → SAMEDI
+       ================================= */
+
+        if(afficherHorairesT1.sens === "GARE"){
+
+            /* 🌅 04h30 → 06h30
+               Toutes les 20 minutes */
+
+            if(minutesActuelles < 390){
+
+                let departBase = 270;
+
+                if(minutesActuelles <= departBase){
+
+                    prochain = departBase;
+
+                }else{
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 20
+                        ) * 20;
+
+                }
+
+            }
+
+
+            /* ☀️ 06h30 → 19h30
+               Toutes les 14 minutes */
+
+            if(prochain === null && minutesActuelles < 1170){
+
+                let departBase = 390;
+
+                if(minutesActuelles <= departBase){
+
+                    prochain = departBase;
+
+                }else{
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 14
+                        ) * 14;
+
+                }
+
+            }
+
+
+            /* 🌙 19h30 → 00h30
+               Toutes les 24 minutes */
+
+            if(prochain === null && minutesActuelles < 1470){
+
+                let departBase = 1170;
+
+                if(minutesActuelles <= departBase){
+
+                    prochain = departBase;
+
+                }else{
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 24
+                        ) * 24;
+
+                }
+
+            }
+
+        }else{
+
+
+            /* 🎢 PARC → GARE */
+
+            if(minutesActuelles < 390){
+
+                let departBase = 280;
+
+                if(minutesActuelles <= departBase){
+
+                    prochain = departBase;
+
+                }else{
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 20
+                        ) * 20;
+
+                }
+
+            }
+
+
+            if(prochain === null && minutesActuelles < 1170){
+
+                let departBase = 400;
+
+                if(minutesActuelles <= departBase){
+
+                    prochain = departBase;
+
+                }else{
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 14
+                        ) * 14;
+
+                }
+
+            }
+
+
+            if(prochain === null && minutesActuelles < 1470){
+
+                let departBase = 1180;
+
+                if(minutesActuelles <= departBase){
+
+                    prochain = departBase;
+
+                }else{
+
+                    prochain =
+                        departBase +
+                        Math.ceil(
+                            (minutesActuelles - departBase) / 24
+                        ) * 24;
+
+                }
+
+            }
+
+        }
+
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE
+       ================================= */
+
+    if(prochain === null){
+
+        bloc.innerHTML = `
+
+        <div style="
+        background:white;
+        color:#14213d;
+        padding:15px;
+        border-radius:15px;
+        margin-top:10px;
+        ">
+
+            <h3>🌙 Fin du service</h3>
+
+            <p>
+            Prochain service : 07h45
+            </p>
+
+            <button
+            onclick="
+            afficherHorairesT1.sens =
+            afficherHorairesT1.sens === 'GARE'
+            ? 'PARC'
+            : 'GARE';
+
+            afficherHorairesT1();
+            "
+            style="
+            background:#eeeeee;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            🔄 Changer de sens
+
+            </button>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* =================================
+       🕒 FORMATAGE
+       ================================= */
+
+    function heureT1(total){
+
+        total = total % 1440;
+
+        let h =
+            Math.floor(total / 60);
+
+        let m =
+            total % 60;
+
+        return (
+            String(h).padStart(2,"0")
+            + ":"
+            + String(m).padStart(2,"0")
+        );
+
+    }
+
+
+    /* =================================
+       🚏 ARRÊTS
+       ================================= */
+
+    let depart;
+    let plage;
+    let terminus;
+
+    if(afficherHorairesT1.sens === "GARE"){
+
+        depart = "🚏 Gare routière";
+        plage = "🏖️ La Plage Ouest";
+        terminus = "🎢 Parc d'attractions";
+
+    }else{
+
+        depart = "🎢 Parc d'attractions";
+        plage = "🏖️ La Plage Ouest";
+        terminus = "🚏 Gare routière";
+
+    }
+
+
+    /* =================================
+       🕒 HORAIRES AUX ARRÊTS
+       ================================= */
+
+    let passagePlage = prochain + 2;
+    let passageTerminus = prochain + 4;
+
+
+    /* =================================
+       🟢 AFFICHAGE
+       ================================= */
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Prochain passage</h3>
+
+        <br>
+
+        <p>
+        🟢 <strong>T1</strong>
+        </p>
+
+        <br>
+
+        <p>
+        <strong>${depart}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureT1(prochain)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${plage}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureT1(passagePlage)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${terminus}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureT1(passageTerminus)}
+        </strong>
+
+        <p style="margin-top:12px;">
+        ⏱️ Trajet : 4 minutes
+        </p>
+
+        <p>
+        🚋 ${jour === 0
+            ? "Dimanche : toutes les 40 / 24 minutes"
+            : "Toutes les 20 / 14 / 24 minutes"}
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesT1.sens =
+        afficherHorairesT1.sens === 'GARE'
+        ? 'PARC'
+        : 'GARE';
+
+        afficherHorairesT1();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHorairesT2(){
+
+    let bloc = document.getElementById("horaireT2");
+
+    if(!bloc) return;
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+    if(typeof afficherHorairesT2.sens === "undefined"){
+        afficherHorairesT2.sens = "GARE";
+    }
+
+    let prochain = null;
+
+
+    /* =================================
+       🚉 GARE SNCF → AÉROPORT
+       ================================= */
+
+    if(afficherHorairesT2.sens === "GARE"){
+
+        /* 04h40 → 06h30
+           Premier départ : 04h40
+           Puis toutes les 10 minutes */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 280;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 10
+                    ) * 10;
+            }
+
+            if(prochain >= 390){
+                prochain = null;
+            }
+        }
+
+
+        /* 06h30 → 19h30
+           Toutes les 7 minutes */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 390;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 7
+                    ) * 7;
+            }
+
+            if(prochain >= 1170){
+                prochain = null;
+            }
+        }
+
+
+        /* 19h30 → 00h30
+           Toutes les 20 minutes */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1170;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 20
+                    ) * 20;
+            }
+        }
+
+    }else{
+
+
+        /* =================================
+           ✈️ AÉROPORT → GARE SNCF
+           ================================= */
+
+        /* Premier départ : 04h50 */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 290;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 10
+                    ) * 10;
+            }
+
+            if(prochain >= 390){
+                prochain = null;
+            }
+        }
+
+
+        /* 06h30 → 19h30
+           T2 reste sur la grille principale */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 390;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 7
+                    ) * 7;
+            }
+
+            if(prochain >= 1170){
+                prochain = null;
+            }
+        }
+
+
+        /* 19h30 → 00h30 */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1170;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 20
+                    ) * 20;
+            }
+        }
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE
+       ================================= */
+
+    if(prochain === null || prochain > 1470){
+
+        bloc.innerHTML = `
+
+        <div style="
+        background:white;
+        color:#14213d;
+        padding:15px;
+        border-radius:15px;
+        margin-top:10px;
+        ">
+
+            <h3>🌙 Fin du service</h3>
+
+            <p>Prochain service : 04h40</p>
+
+            <button
+            onclick="
+            afficherHorairesT2.sens =
+            afficherHorairesT2.sens === 'GARE'
+            ? 'AEROPORT'
+            : 'GARE';
+
+            afficherHorairesT2();
+            "
+            style="
+            background:#eeeeee;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            🔄 Changer de sens
+
+            </button>
+
+        </div>
+        `;
+
+        return;
+    }
+
+
+    function heureT2(total){
+
+        total = total % 1440;
+
+        let h = Math.floor(total / 60);
+        let m = total % 60;
+
+        return (
+            String(h).padStart(2,"0")
+            + ":"
+            + String(m).padStart(2,"0")
+        );
+    }
+
+
+    let passageCentre = prochain + 2;
+    let passageTerminus = prochain + 4;
+
+    let depart;
+    let terminus;
+
+    if(afficherHorairesT2.sens === "GARE"){
+
+        depart = "🚉 Gare SNCF";
+        terminus = "✈️ Lego Ville Aéroport";
+
+    }else{
+
+        depart = "✈️ Lego Ville Aéroport";
+        terminus = "🚉 Gare SNCF";
+    }
+
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Prochain passage</h3>
+
+        <br>
+
+        <p>🔴 <strong>T2</strong></p>
+
+        <br>
+
+        <p><strong>${depart}</strong></p>
+
+        <strong style="font-size:24px;">
+        ${heureT2(prochain)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>🏬 <strong>Centre commercial</strong></p>
+
+        <strong style="font-size:24px;">
+        ${heureT2(passageCentre)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p><strong>${terminus}</strong></p>
+
+        <strong style="font-size:24px;">
+        ${heureT2(passageTerminus)}
+        </strong>
+
+        <p style="margin-top:12px;">
+        ⏱️ Trajet : 4 minutes
+        </p>
+
+        <p>
+        🔴 10 min / 7 min / 20 min
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesT2.sens =
+        afficherHorairesT2.sens === 'GARE'
+        ? 'AEROPORT'
+        : 'GARE';
+
+        afficherHorairesT2();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+}
+
+
+
+function afficherHorairesT3(){
+
+    let bloc = document.getElementById("horaireT3");
+
+    if(!bloc) return;
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+    if(typeof afficherHorairesT3.sens === "undefined"){
+        afficherHorairesT3.sens = "GARE";
+    }
+
+    let prochain = null;
+
+
+    /* =================================
+       🚉 GARE SNCF → AQUARIUM
+       ================================= */
+
+    if(afficherHorairesT3.sens === "GARE"){
+
+        /* Premier départ : 04h50 */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 290;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 10
+                    ) * 10;
+            }
+
+            if(prochain >= 390){
+                prochain = null;
+            }
+        }
+
+
+        /* 06h30 → 19h30
+           T3 décalé de 4 minutes */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 394;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 7
+                    ) * 7;
+            }
+
+            if(prochain >= 1170){
+                prochain = null;
+            }
+        }
+
+
+        /* 19h30 → 00h30
+           T3 décalé de 10 minutes */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1180;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 20
+                    ) * 20;
+            }
+        }
+
+    }else{
+
+
+        /* =================================
+           🐠 AQUARIUM → GARE SNCF
+           ================================= */
+
+        /* Premier départ : 05h00 */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 300;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 10
+                    ) * 10;
+            }
+
+            if(prochain >= 390){
+                prochain = null;
+            }
+        }
+
+
+        /* 06h30 → 19h30
+           T3 décalé de 4 minutes */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 394;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 7
+                    ) * 7;
+            }
+
+            if(prochain >= 1170){
+                prochain = null;
+            }
+        }
+
+
+        /* 19h30 → 00h30
+           T3 décalé de 10 minutes */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1180;
+
+            if(minutesActuelles <= departBase){
+                prochain = departBase;
+            }else{
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 20
+                    ) * 20;
+            }
+        }
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE
+       ================================= */
+
+    if(prochain === null || prochain > 1470){
+
+        bloc.innerHTML = `
+
+        <div style="
+        background:white;
+        color:#14213d;
+        padding:15px;
+        border-radius:15px;
+        margin-top:10px;
+        ">
+
+            <h3>🌙 Fin du service</h3>
+
+            <p>Prochain service : 04h50</p>
+
+            <button
+            onclick="
+            afficherHorairesT3.sens =
+            afficherHorairesT3.sens === 'GARE'
+            ? 'AQUARIUM'
+            : 'GARE';
+
+            afficherHorairesT3();
+            "
+            style="
+            background:#eeeeee;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            🔄 Changer de sens
+
+            </button>
+
+        </div>
+        `;
+
+        return;
+    }
+
+
+    function heureT3(total){
+
+        total = total % 1440;
+
+        let h = Math.floor(total / 60);
+        let m = total % 60;
+
+        return (
+            String(h).padStart(2,"0")
+            + ":"
+            + String(m).padStart(2,"0")
+        );
+    }
+
+
+    let passageQuartier = prochain + 2;
+    let passageTerminus = prochain + 4;
+
+    let depart;
+    let terminus;
+
+    if(afficherHorairesT3.sens === "GARE"){
+
+        depart = "🚉 Gare SNCF";
+        terminus = "🐠 Aquarium Cézembre";
+
+    }else{
+
+        depart = "🐠 Aquarium Cézembre";
+        terminus = "🚉 Gare SNCF";
+    }
+
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Prochain passage</h3>
+
+        <br>
+
+        <p>🔵 <strong>T3</strong></p>
+
+        <br>
+
+        <p><strong>${depart}</strong></p>
+
+        <strong style="font-size:24px;">
+        ${heureT3(prochain)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>🏙️ <strong>Quartier futuriste</strong></p>
+
+        <strong style="font-size:24px;">
+        ${heureT3(passageQuartier)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p><strong>${terminus}</strong></p>
+
+        <strong style="font-size:24px;">
+        ${heureT3(passageTerminus)}
+        </strong>
+
+        <p style="margin-top:12px;">
+        ⏱️ Trajet : 4 minutes
+        </p>
+
+        <p>
+        🔵 10 min / 7 min / 20 min
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesT3.sens =
+        afficherHorairesT3.sens === 'GARE'
+        ? 'AQUARIUM'
+        : 'GARE';
+
+        afficherHorairesT3();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+}
+
+function afficherHorairesT4(){
+
+    let bloc = document.getElementById("horaireT4");
+
+    if(!bloc){
+        return;
+    }
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+
+    /* =================================
+       🟣 T4 — MÉMOIRE DU SENS
+       ================================= */
+
+    if(typeof afficherHorairesT4.sens === "undefined"){
+        afficherHorairesT4.sens = "HOPITAL";
+    }
+
+    let prochain = null;
+
+
+    /* =================================
+       🏥 SENS HÔPITAL → PLAGE EST
+       ================================= */
+
+    if(afficherHorairesT4.sens === "HOPITAL"){
+
+        /*
+        🌅 DÉBUT → 06h30
+        Toutes les 24 minutes
+        Premier départ : 04h23
+        */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 263; // 04h23
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 24
+                    ) * 24;
+
+            }
+
+            if(prochain >= 390){
+
+                prochain = null;
+
+            }
+
+        }
+
+
+        /*
+        ☀️ 06h30 → 19h30
+        Toutes les 8 minutes
+
+        Premier départ réel après 06h30 :
+        06h47
+        */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 407; // 06h47
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 8
+                    ) * 8;
+
+            }
+
+            if(prochain >= 1170){
+
+                prochain = null;
+
+            }
+
+        }
+
+
+        /*
+        🌙 19h30 → 00h30
+        Toutes les 30 minutes
+
+        Premier départ réel après 19h30 :
+        19h43
+        */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1183; // 19h43
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 30
+                    ) * 30;
+
+            }
+
+        }
+
+    }else{
+
+
+    /* =================================
+       🏖️ SENS PLAGE EST → HÔPITAL
+       ================================= */
+
+        /*
+        🌅 DÉBUT → 06h30
+        Toutes les 24 minutes
+        Premier départ : 04h33
+        */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 273; // 04h33
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 24
+                    ) * 24;
+
+            }
+
+            if(prochain >= 390){
+
+                prochain = null;
+
+            }
+
+        }
+
+
+        /*
+        ☀️ 06h30 → 19h30
+        Toutes les 8 minutes
+
+        Premier départ réel après 06h30 :
+        06h57
+        */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 417; // 06h57
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 8
+                    ) * 8;
+
+            }
+
+            if(prochain >= 1170){
+
+                prochain = null;
+
+            }
+
+        }
+
+
+        /*
+        🌙 19h30 → 00h30
+        Toutes les 30 minutes
+
+        Premier départ réel après 19h30 :
+        19h37
+        */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1177; // 19h37
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 30
+                    ) * 30;
+
+            }
+
+        }
+
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE
+       ================================= */
+
+    if(prochain === null || prochain > 1470){
+
+        bloc.innerHTML = `
+
+        <div style="
+        background:white;
+        color:#14213d;
+        padding:15px;
+        border-radius:15px;
+        margin-top:10px;
+        ">
+
+            <h3>🌙 Fin du service</h3>
+
+            <p>
+            Prochain service : 04h23
+            </p>
+
+            <button
+            onclick="
+            afficherHorairesT4.sens =
+            afficherHorairesT4.sens === 'HOPITAL'
+            ? 'PLAGE'
+            : 'HOPITAL';
+
+            afficherHorairesT4();
+            "
+            style="
+            background:#eeeeee;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            🔄 Changer de sens
+
+            </button>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* =================================
+       🕒 FORMATAGE
+       ================================= */
+
+    function heureT4(total){
+
+        total = total % 1440;
+
+        let h =
+            Math.floor(total / 60);
+
+        let m =
+            total % 60;
+
+        return (
+            String(h).padStart(2,"0")
+            + ":"
+            + String(m).padStart(2,"0")
+        );
+
+    }
+
+
+    /* =================================
+       🟣 CALCUL DES ARRÊTS
+       ================================= */
+
+    let passageGare =
+        prochain + 2;
+
+    let passageTerminus =
+        prochain + 4;
+
+
+    /* =================================
+       🚏 NOMS DES ARRÊTS
+       ================================= */
+
+    let depart;
+    let terminus;
+
+    if(afficherHorairesT4.sens === "HOPITAL"){
+
+        depart = "🏥 Lego Ville Hôpital";
+        terminus = "🏖️ La Plage Est";
+
+    }else{
+
+        depart = "🏖️ La Plage Est";
+        terminus = "🏥 Lego Ville Hôpital";
+
+    }
+
+
+    /* =================================
+       ?? AFFICHAGE
+       ================================= */
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Prochain passage</h3>
+
+        <br>
+
+        <p>
+        🟣 <strong>T4</strong>
+        </p>
+
+        <br>
+
+        <p>
+        <strong>${depart}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureT4(prochain)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        🚉 <strong>Gare SNCF</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureT4(passageGare)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${terminus}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureT4(passageTerminus)}
+        </strong>
+
+        <p style="margin-top:12px;">
+        ⏱️ Trajet : 4 minutes
+        </p>
+
+        <p>
+        🟣 24 min / 8 min / 30 min
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesT4.sens =
+        afficherHorairesT4.sens === 'HOPITAL'
+        ? 'PLAGE'
+        : 'HOPITAL';
+
+        afficherHorairesT4();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHorairesE1(){
+
+let bloc = document.getElementById("horaireE1");
+
+if(!bloc){
+    return;
+}
+
+let maintenant = new Date();
+
+let minutesActuelles =
+    maintenant.getHours() * 60 +
+    maintenant.getMinutes();
+
+let jour = maintenant.getDay();
+
+
+/* =================================
+   ♐ MÉMOIRE DU SENS
+   ================================= */
+
+if(typeof afficherHorairesE1.sens === "undefined"){
+    afficherHorairesE1.sens = "AEROPORT";
+}
+
+
+let prochain = null;
+
+
+/* =================================
+   🟢 DIMANCHE
+   ================================= */
+
+if(jour === 0){
+
+    /* =================================
+       ✈️ AÉROPORT → PLAGE OUEST
+       Premier départ : 07h55
+       ================================= */
+
+    if(afficherHorairesE1.sens === "AEROPORT"){
+
+        let departBase = 7 * 60 + 55; // 07h55
+
+        if(minutesActuelles <= departBase){
+
+            prochain = departBase;
+
+        }else if(minutesActuelles < 13 * 60){
+
+            prochain =
+                departBase +
+                Math.ceil(
+                    (minutesActuelles - departBase) / 40
+                ) * 40;
+
+        }else{
+
+            prochain =
+                13 * 60 +
+                Math.ceil(
+                    (minutesActuelles - 13 * 60) / 24
+                ) * 24;
+
+        }
+
+    }else{
+
+
+    /* =================================
+       🏖️ PLAGE OUEST → AÉROPORT
+       Premier départ : 08h10
+       ================================= */
+
+        let departBase = 8 * 60 + 10; // 08h10
+
+        if(minutesActuelles <= departBase){
+
+            prochain = departBase;
+
+        }else if(minutesActuelles < 13 * 60){
+
+            prochain =
+                departBase +
+                Math.ceil(
+                    (minutesActuelles - departBase) / 40
+                ) * 40;
+
+        }else{
+
+            prochain =
+                13 * 60 +
+                Math.ceil(
+                    (minutesActuelles - 13 * 60) / 24
+                ) * 24;
+
+        }
+
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE DIMANCHE
+       ================================= */
+
+    if(prochain > 24 * 60 + 30){
+
+        prochain = null;
+
+    }
+
+}else{
+
+
+/* =================================
+   🚎 LUNDI → SAMEDI
+   ================================= */
+
+    if(afficherHorairesE1.sens === "AEROPORT"){
+
+        let departBase = 4 * 60 + 46; // 04h46
+
+        if(minutesActuelles <= departBase){
+
+            prochain = departBase;
+
+        }else{
+
+            prochain =
+                departBase +
+                Math.ceil(
+                    (minutesActuelles - departBase) / 14
+                ) * 14;
+
+        }
+
+    }else{
+
+        let departBase = 4 * 60 + 51; // 04h51
+
+        if(minutesActuelles <= departBase){
+
+            prochain = departBase;
+
+        }else{
+
+            prochain =
+                departBase +
+                Math.ceil(
+                    (minutesActuelles - departBase) / 14
+                ) * 14;
+
+        }
+
+    }
+
+
+    if(prochain > 24 * 60 + 30){
+
+        prochain = null;
+
+    }
+
+}
+
+
+/* =================================
+   🌙 FIN DU SERVICE
+   ================================= */
+
+if(prochain === null){
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🌙 Fin du service</h3>
+
+        <p>
+        Prochain service :
+        ${jour === 0 ? "07h55" : "04h46"}
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesE1.sens =
+        afficherHorairesE1.sens === 'AEROPORT'
+        ? 'PLAGE'
+        : 'AEROPORT';
+
+        afficherHorairesE1();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+
+    return;
+}
+
+
+/* =================================
+   🕒 FORMATAGE
+   ================================= */
+
+function heureE1(total){
+
+    total = total % 1440;
+
+    let h =
+        Math.floor(total / 60);
+
+    let m =
+        total % 60;
+
+    return (
+        String(h).padStart(2,"0")
+        + ":"
+        + String(m).padStart(2,"0")
+    );
+
+}
+
+
+/* =================================
+   🚏 ARRÊTS
+   ================================= */
+
+let arret1;
+let arret2;
+let arret3;
+let arret4;
+let arret5;
+let arret6;
+
+
+if(afficherHorairesE1.sens === "AEROPORT"){
+
+    arret1 = "✈️ Lego Ville Aéroport";
+    arret2 = "🐠 Aquarium Cézembre";
+    arret3 = "🏙️ Quartier futuriste";
+    arret4 = "🚉 Gare SNCF";
+    arret5 = "⚓ Le Phare";
+    arret6 = "🏖️ La Plage Ouest";
+
+}else{
+
+    arret1 = "🏖️ La Plage Ouest";
+    arret2 = "⚓ Le Phare";
+    arret3 = "🚉 Gare SNCF";
+    arret4 = "🏙️ Quartier futuriste";
+    arret5 = "🐠 Aquarium Cézembre";
+    arret6 = "✈️ Lego Ville Aéroport";
+
+}
+
+
+/* =================================
+   🕒 TEMPS DE TRAJET
+   ================================= */
+
+let passage2;
+let passage3;
+let passage4;
+let passage5;
+let passage6;
+
+
+if(afficherHorairesE1.sens === "AEROPORT"){
+
+    passage2 = prochain + 3;
+    passage3 = prochain + 5;
+    passage4 = prochain + 7;
+    passage5 = prochain + 10;
+    passage6 = prochain + 11;
+
+}else{
+
+    passage2 = prochain + 1;
+    passage3 = prochain + 4;
+    passage4 = prochain + 6;
+    passage5 = prochain + 8;
+    passage6 = prochain + 11;
+
+}
+
+
+/* =================================
+   ♐ AFFICHAGE
+   ================================= */
+
+bloc.innerHTML = `
+
+<div style="
+background:white;
+color:#14213d;
+padding:15px;
+border-radius:15px;
+margin-top:10px;
+">
+
+    <h3>🕒 Prochain passage</h3>
+
+    <br>
+
+    <p>
+    ♐ <strong>E1</strong>
+    </p>
+
+    <br>
+
+    <p>
+    <strong>${arret1}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE1(prochain)}
+    </strong>
+
+    <hr style="margin:15px 0;">
+
+    <p>
+    <strong>${arret2}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE1(passage2)}
+    </strong>
+
+    <hr style="margin:15px 0;">
+
+    <p>
+    <strong>${arret3}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE1(passage3)}
+    </strong>
+
+    <hr style="margin:15px 0;">
+
+    <p>
+    <strong>${arret4}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE1(passage4)}
+    </strong>
+
+    <hr style="margin:15px 0;">
+
+    <p>
+    <strong>${arret5}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE1(passage5)}
+    </strong>
+
+    <hr style="margin:15px 0;">
+
+    <p>
+    <strong>${arret6}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE1(passage6)}
+    </strong>
+
+    <p style="margin-top:12px;">
+    ⏱️ Trajet : 11 minutes
+    </p>
+
+    <p>
+    ${jour === 0
+        ? "🚎 Dimanche : toutes les 40 min le matin / 24 min l'après-midi"
+        : "🚎 Toutes les 14 minutes"
+    }
+    </p>
+
+    <button
+    onclick="
+    afficherHorairesE1.sens =
+    afficherHorairesE1.sens === 'AEROPORT'
+    ? 'PLAGE'
+    : 'AEROPORT';
+
+    afficherHorairesE1();
+    "
+    style="
+    background:#eeeeee;
+    color:#14213d;
+    padding:9px 14px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🔄 Changer de sens
+
+    </button>
+
+</div>
+
+`;
+
+}
+
+function afficherHorairesE2(){
+
+    let bloc = document.getElementById("horaireE2");
+
+    if(!bloc){
+        return;
+    }
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+
+    /* =================================
+       ♊ E2 — CHANGEMENT DE SENS
+       ================================= */
+
+    if(typeof afficherHorairesE2.sens === "undefined"){
+        afficherHorairesE2.sens = "ECOLE";
+    }
+
+    let prochain = null;
+
+
+    /* =================================
+       🏫 SENS 1
+       LEGO VILLE ÉCOLE → HÔPITAL
+       ================================= */
+
+    if(afficherHorairesE2.sens === "ECOLE"){
+
+        /* 🌅 DÉBUT DU SERVICE → 06h30
+           Toutes les 24 minutes */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 292; // 04h52
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 24
+                    ) * 24;
+
+            }
+
+        }
+
+
+        /* ☀️ 06h30 → 19h30
+           Toutes les 8 minutes */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 390; // 06h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 8
+                    ) * 8;
+
+            }
+
+        }
+
+
+        /* 🌙 19h30 → 00h30
+           Toutes les 30 minutes */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1170; // 19h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 30
+                    ) * 30;
+
+            }
+
+        }
+
+    }else{
+
+
+    /* =================================
+       🏥 SENS 2
+       HÔPITAL → ÉCOLE
+       ================================= */
+
+        /* 🌅 DÉBUT DU SERVICE → 06h30
+           Toutes les 24 minutes */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 298; // 04h58
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 24
+                    ) * 24;
+
+            }
+
+        }
+
+
+        /* ☀️ 06h30 → 19h30
+           Toutes les 8 minutes */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 390; // 06h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 8
+                    ) * 8;
+
+            }
+
+        }
+
+
+        /* 🌙 19h30 → 00h30
+           Toutes les 30 minutes */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1170; // 19h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 30
+                    ) * 30;
+
+            }
+
+        }
+
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE
+       ================================= */
+
+    if(prochain === null || prochain >= 1470){
+
+        bloc.innerHTML = `
+
+        <div style="
+        background:white;
+        color:#14213d;
+        padding:15px;
+        border-radius:15px;
+        margin-top:10px;
+        ">
+
+            <h3>🌙 Fin du service</h3>
+
+            <p>
+            Prochain service : 04h52
+            </p>
+
+            <button
+            onclick="
+            afficherHorairesE2.sens =
+            afficherHorairesE2.sens === 'ECOLE'
+            ? 'HOPITAL'
+            : 'ECOLE';
+
+            afficherHorairesE2();
+            "
+            style="
+            background:#eeeeee;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            🔄 Changer de sens
+
+            </button>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* =================================
+       🕒 FORMATAGE
+       ================================= */
+
+    function heureE2(total){
+
+        total = total % 1440;
+
+        let h =
+            Math.floor(total / 60);
+
+        let m =
+            total % 60;
+
+        return (
+            String(h).padStart(2,"0")
+            + ":"
+            + String(m).padStart(2,"0")
+        );
+
+    }
+
+
+    /* =================================
+       🚏 ARRÊTS
+       ================================= */
+
+    let arret1;
+    let arret2;
+    let arret3;
+    let arret4;
+
+
+    if(afficherHorairesE2.sens === "ECOLE"){
+
+        arret1 = "🏫 Lego Ville École";
+        arret2 = "🗼 Le Phare";
+        arret3 = "🚉 Gare SNCF";
+        arret4 = "🏥 Lego Ville Hôpital";
+
+    }else{
+
+        arret1 = "🏥 Lego Ville Hôpital";
+        arret2 = "🚉 Gare SNCF";
+        arret3 = "🗼 Le Phare";
+        arret4 = "🏫 Lego Ville École";
+
+    }
+
+
+    /* =================================
+       🕒 HORAIRES AUX ARRÊTS
+       ================================= */
+
+    let passage2;
+    let passage3;
+    let passage4;
+
+
+    if(afficherHorairesE2.sens === "ECOLE"){
+
+        passage2 = prochain + 1;
+        passage3 = prochain + 4;
+        passage4 = prochain + 6;
+
+    }else{
+
+        passage2 = prochain + 2;
+        passage3 = prochain + 3;
+        passage4 = prochain + 5;
+
+    }
+
+
+    /* =================================
+       ♊ AFFICHAGE
+       ================================= */
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Prochain passage</h3>
+
+        <br>
+
+        <p>
+        ♊ <strong>E2</strong>
+        </p>
+
+        <br>
+
+        <p>
+        <strong>${arret1}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE2(prochain)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arret2}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE2(passage2)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arret3}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE2(passage3)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arret4}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE2(passage4)}
+        </strong>
+
+        <p style="margin-top:12px;">
+        ⏱️ Trajet : 6 minutes
+        </p>
+
+        <p>
+        🚎 Toutes les 24 / 8 / 30 minutes
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesE2.sens =
+        afficherHorairesE2.sens === 'ECOLE'
+        ? 'HOPITAL'
+        : 'ECOLE';
+
+        afficherHorairesE2();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHorairesE3(){
+
+    let bloc = document.getElementById("horaireE3");
+
+    if(!bloc){
+        return;
+    }
+
+    let maintenant = new Date();
+
+    let minutesActuelles =
+        maintenant.getHours() * 60 +
+        maintenant.getMinutes();
+
+
+    /* =================================
+       ♍ E3 — CHANGEMENT DE SENS
+       ================================= */
+
+    if(typeof afficherHorairesE3.sens === "undefined"){
+        afficherHorairesE3.sens = "PARC";
+    }
+
+    let prochain = null;
+
+
+    /* =================================
+       🎢 SENS 1
+       PARC D'ATTRACTIONS → PLAGE EST
+       ================================= */
+
+    if(afficherHorairesE3.sens === "PARC"){
+
+        /* 🌅 DÉBUT → 06h30
+           Toutes les 24 minutes */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 300; // 05h00
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 24
+                    ) * 24;
+
+            }
+
+        }
+
+
+        /* ☀️ 06h30 → 19h30
+           Toutes les 8 minutes */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 390; // 06h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 8
+                    ) * 8;
+
+            }
+
+        }
+
+
+        /* 🌙 19h30 → 00h30
+           Toutes les 30 minutes */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1170; // 19h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 30
+                    ) * 30;
+
+            }
+
+        }
+
+    }else{
+
+
+    /* =================================
+       🏖️ SENS 2
+       PLAGE EST → PARC D'ATTRACTIONS
+       ================================= */
+
+        /* 🌅 DÉBUT → 06h30
+           Toutes les 24 minutes */
+
+        if(minutesActuelles < 390){
+
+            let departBase = 308; // 05h08
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 24
+                    ) * 24;
+
+            }
+
+        }
+
+
+        /* ☀️ 06h30 → 19h30
+           Toutes les 8 minutes */
+
+        if(prochain === null && minutesActuelles < 1170){
+
+            let departBase = 390; // 06h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 8
+                    ) * 8;
+
+            }
+
+        }
+
+
+        /* 🌙 19h30 → 00h30
+           Toutes les 30 minutes */
+
+        if(prochain === null && minutesActuelles < 1470){
+
+            let departBase = 1170; // 19h30
+
+            if(minutesActuelles <= departBase){
+
+                prochain = departBase;
+
+            }else{
+
+                prochain =
+                    departBase +
+                    Math.ceil(
+                        (minutesActuelles - departBase) / 30
+                    ) * 30;
+
+            }
+
+        }
+
+    }
+
+
+    /* =================================
+       🌙 FIN DU SERVICE
+       ================================= */
+
+    if(prochain === null || prochain >= 1470){
+
+        bloc.innerHTML = `
+
+        <div style="
+        background:white;
+        color:#14213d;
+        padding:15px;
+        border-radius:15px;
+        margin-top:10px;
+        ">
+
+            <h3>🌙 Fin du service</h3>
+
+            <p>
+            Prochain service : 05h00
+            </p>
+
+            <button
+            onclick="
+            afficherHorairesE3.sens =
+            afficherHorairesE3.sens === 'PARC'
+            ? 'PLAGE'
+            : 'PARC';
+
+            afficherHorairesE3();
+            "
+            style="
+            background:#eeeeee;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            🔄 Changer de sens
+
+            </button>
+
+        </div>
+
+        `;
+
+        return;
+    }
+
+
+    /* =================================
+       🕒 FORMATAGE
+       ================================= */
+
+    function heureE3(total){
+
+        total = total % 1440;
+
+        let h =
+            Math.floor(total / 60);
+
+        let m =
+            total % 60;
+
+        return (
+            String(h).padStart(2,"0")
+            + ":"
+            + String(m).padStart(2,"0")
+        );
+
+    }
+
+
+    /* =================================
+       🚏 ARRÊTS
+       ================================= */
+
+    let arret1;
+    let arret2;
+    let arret3;
+    let arret4;
+    let arret5;
+
+
+    if(afficherHorairesE3.sens === "PARC"){
+
+        arret1 = "🎢 Lego Ville Parc d'attractions";
+        arret2 = "🗼 Le Phare";
+        arret3 = "🚌 Gare routière";
+        arret4 = "🚉 Gare SNCF";
+        arret5 = "🏖️ La Plage Est";
+
+    }else{
+
+        arret1 = "🏖️ La Plage Est";
+        arret2 = "🚉 Gare SNCF";
+        arret3 = "🚌 Gare routière";
+        arret4 = "🗼 Le Phare";
+        arret5 = "🎢 Lego Ville Parc d'attractions";
+
+    }
+
+
+    /* =================================
+       🕒 HORAIRES AUX ARRÊTS
+       ================================= */
+
+    let passage2;
+    let passage3;
+    let passage4;
+    let passage5;
+
+
+    if(afficherHorairesE3.sens === "PARC"){
+
+        passage2 = prochain + 2;
+        passage3 = prochain + 3;
+        passage4 = prochain + 6;
+        passage5 = prochain + 8;
+
+    }else{
+
+        passage2 = prochain + 2;
+        passage3 = prochain + 3;
+        passage4 = prochain + 6;
+        passage5 = prochain + 8;
+
+    }
+
+
+    /* =================================
+       ♍ AFFICHAGE
+       ================================= */
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>?? Prochain passage</h3>
+
+        <br>
+
+        <p>
+        ♍ <strong>E3</strong>
+        </p>
+
+        <br>
+
+        <p>
+        <strong>${arret1}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE3(prochain)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arret2}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE3(passage2)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arret3}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE3(passage3)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arret4}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE3(passage4)}
+        </strong>
+
+        <hr style="margin:15px 0;">
+
+        <p>
+        <strong>${arret5}</strong>
+        </p>
+
+        <strong style="font-size:24px;">
+        ${heureE3(passage5)}
+        </strong>
+
+        <p style="margin-top:12px;">
+        ⏱️ Trajet : 8 minutes
+        </p>
+
+        <p>
+        🚎 Toutes les 24 / 8 / 30 minutes
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesE3.sens =
+        afficherHorairesE3.sens === 'PARC'
+        ? 'PLAGE'
+        : 'PARC';
+
+        afficherHorairesE3();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHorairesE4(){
+
+let bloc = document.getElementById("horaireE4");
+
+if(!bloc){
+    return;
+}
+
+let maintenant = new Date();
+
+let minutesActuelles =
+    maintenant.getHours() * 60 +
+    maintenant.getMinutes();
+
+
+/* =================================
+   ♒ E4 — CHANGEMENT DE SENS
+   ================================= */
+
+if(typeof afficherHorairesE4.sens === "undefined"){
+    afficherHorairesE4.sens = "AEROPORT";
+}
+
+
+/* =================================
+   🕒 CALCUL DU PROCHAIN DÉPART
+   ================================= */
+
+let prochain = null;
+
+
+/* =================================
+   ✈️ SENS 1
+   Aéroport → Hôpital
+
+   Premier départ : 05h10
+   Toutes les 14 minutes
+   ================================= */
+
+if(afficherHorairesE4.sens === "AEROPORT"){
+
+    let departBase = 5 * 60 + 10; // 05h10
+
+    if(minutesActuelles <= departBase){
+
+        prochain = departBase;
+
+    }else{
+
+        prochain =
+            departBase +
+            Math.ceil(
+                (minutesActuelles - departBase) / 14
+            ) * 14;
+
+    }
+
+    if(prochain > 24 * 60 + 30){
+
+        prochain = null;
+
+    }
+
+}else{
+
+
+/* =================================
+   🏥 SENS 2
+   Hôpital → Aéroport
+
+   Premier départ : 05h16
+   Toutes les 14 minutes
+   ================================= */
+
+    let departBase = 5 * 60 + 16; // 05h16
+
+    if(minutesActuelles <= departBase){
+
+        prochain = departBase;
+
+    }else{
+
+        prochain =
+            departBase +
+            Math.ceil(
+                (minutesActuelles - departBase) / 14
+            ) * 14;
+
+    }
+
+    if(prochain > 24 * 60 + 30){
+
+        prochain = null;
+
+    }
+
+}
+
+
+/* =================================
+   🌙 FIN DU SERVICE
+   ================================= */
+
+if(prochain === null){
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🌙 Fin du service</h3>
+
+        <p>
+        Prochain service : 05h10
+        </p>
+
+        <button
+        onclick="
+        afficherHorairesE4.sens =
+        afficherHorairesE4.sens === 'AEROPORT'
+        ? 'HOPITAL'
+        : 'AEROPORT';
+
+        afficherHorairesE4();
+        "
+        style="
+        background:#eeeeee;
+        color:#14213d;
+        padding:9px 14px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🔄 Changer de sens
+
+        </button>
+
+    </div>
+
+    `;
+
+    return;
+}
+
+
+/* =================================
+   🕒 FORMATAGE DE L'HEURE
+   ================================= */
+
+function heureE4(total){
+
+    total = total % 1440;
+
+    let h =
+        Math.floor(total / 60);
+
+    let m =
+        total % 60;
+
+    return (
+        String(h).padStart(2,"0")
+        + ":"
+        + String(m).padStart(2,"0")
+    );
+
+}
+
+
+/* =================================
+   🚏 ARRÊTS
+   ================================= */
+
+let arret1;
+let arret2;
+let arret3;
+
+
+if(afficherHorairesE4.sens === "AEROPORT"){
+
+    arret1 = "✈️ Lego Ville Aéroport";
+    arret2 = "🏬 Centre commercial";
+    arret3 = "🏥 Lego Ville Hôpital";
+
+}else{
+
+    arret1 = "🏥 Lego Ville Hôpital";
+    arret2 = "🏬 Centre commercial";
+    arret3 = "✈️ Lego Ville Aéroport";
+
+}
+
+
+/* =================================
+   🕒 HORAIRES AUX ARRÊTS
+   ================================= */
+
+let passage2;
+let passage3;
+
+
+if(afficherHorairesE4.sens === "AEROPORT"){
+
+    passage2 = prochain + 2;
+    passage3 = prochain + 6;
+
+}else{
+
+    passage2 = prochain + 2;
+    passage3 = prochain + 6;
+
+}
+
+
+/* =================================
+   ♒ AFFICHAGE
+   ================================= */
+
+bloc.innerHTML = `
+
+<div style="
+background:white;
+color:#14213d;
+padding:15px;
+border-radius:15px;
+margin-top:10px;
+">
+
+    <h3>🕒 Prochain passage</h3>
+
+    <br>
+
+    <p>
+    ♒ <strong>E4</strong>
+    </p>
+
+    <br>
+
+    <p>
+    <strong>${arret1}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE4(prochain)}
+    </strong>
+
+    <hr style="margin:15px 0;">
+
+    <p>
+    <strong>${arret2}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE4(passage2)}
+    </strong>
+
+    <hr style="margin:15px 0;">
+
+    <p>
+    <strong>${arret3}</strong>
+    </p>
+
+    <strong style="font-size:24px;">
+    ${heureE4(passage3)}
+    </strong>
+
+    <p style="margin-top:12px;">
+    ⏱️ Trajet : 6 minutes
+    </p>
+
+    <p>
+    🚎 Toutes les 14 minutes
+    </p>
+
+    <button
+    onclick="
+    afficherHorairesE4.sens =
+    afficherHorairesE4.sens === 'AEROPORT'
+    ? 'HOPITAL'
+    : 'AEROPORT';
+
+    afficherHorairesE4();
+    "
+    style="
+    background:#eeeeee;
+    color:#14213d;
+    padding:9px 14px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🔄 Changer de sens
+
+    </button>
+
+</div>
+
+`;
+
+}
+
+function afficherHorairesE5(){
+
+    let bloc = document.getElementById("horaireE5");
+
+    if(!bloc){
+        return;
+    }
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Horaires E5</h3>
+
+        <br>
+
+        <p>
+        ♓ E5
+        </p>
+
+        <p>
+        Horaires à définir.
+        </p>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHorairesE6(){
+
+    let bloc = document.getElementById("horaireE6");
+
+    if(!bloc){
+        return;
+    }
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Horaires E6</h3>
+
+        <br>
+
+        <p>
+        ♋ E6
+        </p>
+
+        <p>
+        Horaires à définir.
+        </p>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHorairesE7(){
+
+    let bloc = document.getElementById("horaireE7");
+
+    if(!bloc){
+        return;
+    }
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Horaires E7</h3>
+
+        <br>
+
+        <p>
+        ⛎ E7
+        </p>
+
+        <p>
+        Horaires à définir.
+        </p>
+
+    </div>
+
+    `;
+
+}
+
+function afficherHoraires8(){
+
+    let bloc = document.getElementById("horaire8");
+
+    if(!bloc){
+        return;
+    }
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Horaires 8</h3>
+
+        <br>
+
+        <p>
+        ♂️ 8
+        </p>
+
+        <p>
+        Horaires à définir.
+        </p>
+
+    </div>
+
+    `;
+
+}
+
+function changerTraficT4(){
+    // ...
+}
+
+
+/* 💾 MÉMORISATION DU TRAFIC */
+
+function sauvegarderTrafic(ligne, etat){
+
+    let trafic = JSON.parse(
+        localStorage.getItem("traficLignes")
+    ) || {};
+
+    trafic[ligne] = etat;
+
+    localStorage.setItem(
+        "traficLignes",
+        JSON.stringify(trafic)
+    );
+
+}
+
+
+function recupererTrafic(ligne){
+
+    let trafic = JSON.parse(
+        localStorage.getItem("traficLignes")
+    ) || {};
+
+    return trafic[ligne] || "🟢 Circulation normale";
+
+}
+
+
+/* ⚠️ INFOS TRAFIC */
+
+function ouvrirTrafic(){
+
+    document.getElementById("menuPanel")
+    .classList.remove("ouvert");
+
+    document.body.innerHTML=`
+
+    <div class="card">
+
+        <button onclick="location.reload()">
+            ✖️ Retour
+        </button>
+
+        <h2>
+            ⚠️ Infos trafic
+        </h2>
+
+        <p>
+            Gérez manuellement l'état des lignes.
+        </p>
+
+
+        <!-- 🚠 C1 -->
+
+        <div class="ligneBus ligneC1">
+
+            <h3>
+                C1 🚠
+            </h3>
+
+            <p id="traficC1">
+    ${recupererTrafic("C1")}
+</p>
+
+            <br>
+
+            <button
+            onclick="changerTraficC1()"
+            style="
+            background:white;
+            color:#14213d;
+            padding:8px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            ✏️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- 🟢 T1 -->
+
+        <div class="ligneBus ligneT1">
+
+            <h3>
+                T1 🟢
+            </h3>
+
+            <p id="traficT1">
+    ${recupererTrafic("T1")}
+</p>
+
+            <br>
+
+            <button
+            onclick="changerTraficT1()"
+            style="
+            background:white;
+            color:#22a447;
+            padding:8px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+            ✏️ Modifier le trafic
+
+            </button>
+
+        </div>
+        
+        <!-- 🔴 T2 -->
+
+<div class="ligneBus ligneT2">
+
+    <h3>
+        T2 🔴
+    </h3>
+
+    <p id="traficT2">
+    ${recupererTrafic("T2")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficT2()"
+    style="
+    background:white;
+    color:#e53935;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- 🔵 T3 -->
+
+<div class="ligneBus ligneT3">
+
+    <h3>
+        T3 🔵
+    </h3>
+
+    <p id="traficT3">
+    ${recupererTrafic("T3")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficT3()"
+    style="
+    background:white;
+    color:#0755a5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- 🟣 T4 -->
+
+<div class="ligneBus ligneT4">
+
+    <h3>
+        T4 🟣
+    </h3>
+
+    <p id="traficT4">
+    ${recupererTrafic("T4")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficT4()"
+    style="
+    background:white;
+    color:#8e44ad;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♐ E1 -->
+
+<div class="ligneBus busE1">
+
+    <h3>
+        E1 ♐
+    </h3>
+
+    <p id="traficE1">
+    ${recupererTrafic("E1")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficE1()"
+    style="
+    background:white;
+    color:#0755a5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♊ E2 -->
+
+<div class="ligneBus busE2">
+
+    <h3>
+        E2 ♊
+    </h3>
+
+    <p id="traficE2">
+    ${recupererTrafic("E2")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficE2()"
+    style="
+    background:white;
+    color:#f28c28;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♍ E3 -->
+
+<div class="ligneBus busE3">
+
+    <h3>
+        E3 ♍
+    </h3>
+
+    
+    <p id="traficE3">
+    ${recupererTrafic("E3")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficE3()"
+    style="
+    background:white;
+    color:#7bd66f;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♒ E4 -->
+
+<div class="ligneBus busE4">
+
+    <h3>
+        E4 ♒
+    </h3>
+
+    <p id="traficE4">
+    ${recupererTrafic("E4")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficE4()"
+    style="
+    background:white;
+    color:#8e44ad;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♓ E5 -->
+
+<div class="ligneBus busE5">
+
+    <h3>
+        E5 ♓
+    </h3>
+
+    <p id="traficE5">
+    ${recupererTrafic("E5")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficE5()"
+    style="
+    background:white;
+    color:#e88ab5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♋ E6 -->
+
+<div class="ligneBus busE6">
+
+    <h3>
+        E6 ♋
+    </h3>
+
+    <p id="traficE6">
+    ${recupererTrafic("E6")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficE6()"
+    style="
+    background:white;
+    color:#f4d03f;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ⛎ E7 -->
+
+<div class="ligneBus busE7">
+
+    <h3>
+        E7 ⛎
+    </h3>
+
+    <p id="traficE7">
+    ${recupererTrafic("E7")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTraficE7()"
+    style="
+    background:white;
+    color:#0755a5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♂️ 8 -->
+
+<div class="ligneBus bus8">
+
+    <h3>
+        8 ♂️
+    </h3>
+
+    <p id="trafic8">
+    ${recupererTrafic("8")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTrafic8()"
+    style="
+    background:white;
+    color:#20bfa9;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+<!-- ♂️ 8G -->
+
+<div class="ligneBus bus8G">
+
+    <h3>
+        8G ♂️
+    </h3>
+
+    <p id="trafic8G">
+    ${recupererTrafic("8G")}
+</p>
+
+    <br>
+
+    <button
+    onclick="changerTrafic8G()"
+    style="
+    background:white;
+    color:#20bfa9;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    ✏️ Modifier le trafic
+
+    </button>
+
+</div>
+
+
+    </div>
+
+    `;
+
+}
+
+function changerTraficC1(){
+
+    let trafic = document.getElementById("traficC1");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("C1", nouvelEtat);
+
+}
+
+
+
+
+
+function changerTraficT1(){
+
+    let trafic = document.getElementById("traficT1");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("T1", nouvelEtat);
+
+    /* 🔔 Notification */
+
+    if(nouvelEtat.includes("🟠")){
+
+        traficPerturbe("T1 🟢");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        traficFortementPerturbe("T1 🟢");
+
+    }else{
+
+        traficNormal("T1 🟢");
+
+    }
+
+}
+
+
+function changerTraficT2(){
+
+    let trafic = document.getElementById("traficT2");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("T2", nouvelEtat);
+
+    /* 🔔 Notification */
+
+    if(nouvelEtat.includes("🟠")){
+
+        traficPerturbe("T2 🔴");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        traficFortementPerturbe("T2 🔴");
+
+    }else{
+
+        traficNormal("T2 🔴");
+
+    }
+
+}
+
+function changerTraficT3(){
+
+    let trafic = document.getElementById("traficT3");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("T3", nouvelEtat);
+
+    /* 🔔 Notification */
+
+    if(nouvelEtat.includes("🟠")){
+
+        traficPerturbe("T3 🔵");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        traficFortementPerturbe("T3 🔵");
+
+    }else{
+
+        traficNormal("T3 🔵");
+
+    }
+
+}
+
+
+function changerTraficT4(){
+
+    let trafic = document.getElementById("traficT4");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("T4", nouvelEtat);
+
+    /* 🔔 Notification */
+
+    if(nouvelEtat.includes("🟠")){
+
+        traficPerturbe("T4 🟣");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        traficFortementPerturbe("T4 🟣");
+
+    }else{
+
+        traficNormal("T4 🟣");
+
+    }
+
+}
+
+
+function changerTraficE1(){
+
+    let trafic = document.getElementById("traficE1");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("E1", nouvelEtat);
+
+    /* 🔔 Notification */
+
+    if(nouvelEtat.includes("🟠")){
+
+        traficPerturbe("E1 ♐");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        traficFortementPerturbe("E1 ♐");
+
+    }else{
+
+        traficNormal("E1 ♐");
+
+    }
+
+}
+
+
+function changerTraficE2(){
+
+    let trafic = document.getElementById("traficE2");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("E2", nouvelEtat);
+
+    /* 🔔 Notification */
+
+    if(nouvelEtat.includes("🟠")){
+
+        traficPerturbe("E2 ♊");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        traficFortementPerturbe("E2 ♊");
+
+    }else{
+
+        traficNormal("E2 ♊");
+
+    }
+
+}
+
+
+function changerTraficE3(){
+
+    let trafic = document.getElementById("traficE3");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("E3", nouvelEtat);
+
+    // 🔔 Notification
+    if(nouvelEtat.includes("🟠")){
+
+        definirTrafic("E3 ♍", "perturbations");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        definirTrafic("E3 ♍", "fortes");
+
+    }else{
+
+        delete notificationsTrafic["E3 ♍"];
+
+        localStorage.setItem(
+            "notificationsTrafic",
+            JSON.stringify(notificationsTrafic)
+        );
+
+    }
+
+    afficherNotificationsCloche();
+
+}
+
+
+function changerTraficE4(){
+
+    let trafic = document.getElementById("traficE4");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("E4", nouvelEtat);
+
+    // 🔔 Notification
+    if(nouvelEtat.includes("🟠")){
+
+        definirTrafic("E4 ♒", "perturbations");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        definirTrafic("E4 ♒", "fortes");
+
+    }else{
+
+        delete notificationsTrafic["E4 ♒"];
+
+        localStorage.setItem(
+            "notificationsTrafic",
+            JSON.stringify(notificationsTrafic)
+        );
+
+    }
+
+    afficherNotificationsCloche();
+
+}
+
+
+function changerTraficE5(){
+
+    let trafic = document.getElementById("traficE5");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("E5", nouvelEtat);
+
+    // 🔔 Notification
+    if(nouvelEtat.includes("🟠")){
+
+        definirTrafic("E5 ♓", "perturbations");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        definirTrafic("E5 ♓", "fortes");
+
+    }else{
+
+        delete notificationsTrafic["E5 ♓"];
+
+        localStorage.setItem(
+            "notificationsTrafic",
+            JSON.stringify(notificationsTrafic)
+        );
+
+    }
+
+    afficherNotificationsCloche();
+
+}
+
+
+function changerTraficE6(){
+
+    let trafic = document.getElementById("traficE6");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("E6", nouvelEtat);
+
+    // 🔔 Notification
+    if(nouvelEtat.includes("🟠")){
+
+        definirTrafic("E6 ♋", "perturbations");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        definirTrafic("E6 ♋", "fortes");
+
+    }else{
+
+        delete notificationsTrafic["E6 ♋"];
+
+        localStorage.setItem(
+            "notificationsTrafic",
+            JSON.stringify(notificationsTrafic)
+        );
+
+    }
+
+    afficherNotificationsCloche();
+
+}
+
+
+function changerTraficE7(){
+
+    let trafic = document.getElementById("traficE7");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("E7", nouvelEtat);
+
+    // 🔔 Notification
+    if(nouvelEtat.includes("🟠")){
+
+        definirTrafic("E7 ⛎", "perturbations");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        definirTrafic("E7 ⛎", "fortes");
+
+    }else{
+
+        delete notificationsTrafic["E7 ⛎"];
+
+        localStorage.setItem(
+            "notificationsTrafic",
+            JSON.stringify(notificationsTrafic)
+        );
+
+    }
+
+    afficherNotificationsCloche();
+
+}
+
+
+function changerTrafic8(){
+
+    let trafic = document.getElementById("trafic8");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("8", nouvelEtat);
+
+    // 🔔 Notification
+    if(nouvelEtat.includes("🟠")){
+
+        definirTrafic("8 ♂️", "perturbations");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        definirTrafic("8 ♂️", "fortes");
+
+    }else{
+
+        delete notificationsTrafic["8 ♂️"];
+
+        localStorage.setItem(
+            "notificationsTrafic",
+            JSON.stringify(notificationsTrafic)
+        );
+
+    }
+
+    afficherNotificationsCloche();
+
+}
+
+
+function changerTrafic8G(){
+
+    let trafic = document.getElementById("trafic8G");
+
+    if(!trafic){
+        return;
+    }
+
+    let nouvelEtat;
+
+    if(trafic.innerHTML.includes("🟢")){
+
+        nouvelEtat = "🟠 Perturbations";
+
+    }else if(trafic.innerHTML.includes("🟠")){
+
+        nouvelEtat = "🔴 Fortes perturbations";
+
+    }else{
+
+        nouvelEtat = "🟢 Circulation normale";
+
+    }
+
+    trafic.innerHTML = nouvelEtat;
+
+    sauvegarderTrafic("8G", nouvelEtat);
+
+    // 🔔 Notification
+    if(nouvelEtat.includes("🟠")){
+
+        definirTrafic("8G ♂️", "perturbations");
+
+    }else if(nouvelEtat.includes("🔴")){
+
+        definirTrafic("8G ♂️", "fortes");
+
+    }else{
+
+        delete notificationsTrafic["8G ♂️"];
+
+        localStorage.setItem(
+            "notificationsTrafic",
+            JSON.stringify(notificationsTrafic)
+        );
+
+    }
+
+    afficherNotificationsCloche();
+
+}
+function ouvrirHoraires(){
+
+document.getElementById("menuPanel")
+.classList.remove("ouvert");
+
+document.body.innerHTML=`
+
+<div class="card">
+
+    <button onclick="location.reload()">
+        ✖️ Retour
+    </button>
+
+    <h2>
+        🕒 Horaires
+    </h2>
+
+    <div class="ligneBus ligneC1">
+
+        <h3>C1 🚠</h3>
+
+        <p>
+            Gare routière ↔ Gare SNCF
+        </p>
+
+        <br>
+
+        <p>
+            ⏱️ Temps de trajet : 2 minutes
+        </p>
+
+        <br>
+
+        <button
+        onclick="afficherHorairesC1()"
+        style="
+        background:white;
+        color:#14213d;
+        padding:8px;
+        border:none;
+        border-radius:10px;
+        margin-top:10px;
+        ">
+
+        🕒 Voir les horaires
+
+        </button>
+
+        <div
+id="horaireC1"
+style="margin-top:15px;">
+</div>
+
+</div>
+
+<!-- 🟢 T1 -->
+<div class="ligneBus ligneT1">
+
+    <h3>T1 🟢</h3>
+
+    <p>
+        Gare routière → La Plage Ouest → Parc d’attractions
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesT1()"
+    style="
+    background:white;
+    color:#22a447;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireT1"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- 🔴 T2 -->
+<div class="ligneBus ligneT2">
+
+    <h3>T2 🔴</h3>
+
+    <p>
+        Gare SNCF → Centre commercial → Lego Ville Aéroport
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesT2()"
+    style="
+    background:white;
+    color:#e53935;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireT2"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+
+
+<!-- 🔵 T3 -->
+<div class="ligneBus ligneT3">
+
+    <h3>T3 🔵</h3>
+
+    <p>
+        Gare SNCF → Quartier futuriste → Aquarium Cézembre
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesT3()"
+    style="
+    background:white;
+    color:#0755a5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireT3"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- 🟣 T4 -->
+<div class="ligneBus ligneT4">
+
+    <h3>T4 🟣</h3>
+
+    <p>
+        Lego Ville Hôpital → Gare SNCF → La Plage Est
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesT4()"
+    style="
+    background:white;
+    color:#8e44ad;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireT4"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♐ E1 -->
+<div class="ligneBus busE1">
+
+    <h3>E1 ♐</h3>
+
+    <p>
+        Lego Ville Aéroport → Aquarium Cézembre → Quartier futuriste → Gare SNCF → La Plage Ouest
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesE1()"
+    style="
+    background:white;
+    color:#0755a5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireE1"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♊ E2 -->
+<div class="ligneBus busE2">
+
+    <h3>E2 ♊</h3>
+
+    <p>
+        Lego Ville École → Le Phare → Gare SNCF → Lego Ville Hôpital
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesE2()"
+    style="
+    background:white;
+    color:#f28c28;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireE2"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♍ E3 -->
+<div class="ligneBus busE3">
+
+    <h3>E3 ♍</h3>
+
+    <p>
+        Lego Ville Parc d’attractions → Le Phare → Gare routière → Gare SNCF → La Plage Est
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesE3()"
+    style="
+    background:white;
+    color:#7bd66f;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireE3"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♒ E4 -->
+<div class="ligneBus busE4">
+
+    <h3>E4 ♒</h3>
+
+    <p>
+        Lego Ville Hôpital → Gare SNCF → Centre commercial → Lego Ville Aéroport
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesE4()"
+    style="
+    background:white;
+    color:#8e44ad;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireE4"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♓ E5 -->
+<div class="ligneBus busE5">
+
+    <h3>E5 ♓</h3>
+
+    <p>
+        La Plage Est → Gare SNCF → Lego Ville Hôpital
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesE5()"
+    style="
+    background:white;
+    color:#e88ab5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireE5"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♋ E6 -->
+<div class="ligneBus busE6">
+
+    <h3>E6 ♋</h3>
+
+    <p>
+        Lego Ville Parc d’attractions → La Plage Ouest → Gare routière → Gare SNCF → La Plage Est
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesE6()"
+    style="
+    background:white;
+    color:#f4d03f;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireE6"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ⛎ E7 -->
+<div class="ligneBus busE7">
+
+    <h3>E7 ⛎</h3>
+
+    <p>
+        Aquarium Cézembre → Quartier futuriste → Gare SNCF → Gare routière → Le Phare → La Plage Ouest → Lego Ville Parc d’attractions
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHorairesE7()"
+    style="
+    background:white;
+    color:#0755a5;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaireE7"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♂️ 8 -->
+<div class="ligneBus bus8">
+
+    <h3>8 ♂️</h3>
+
+    <p>
+        Le Phare → Lego Ville Parc d’attractions → La Plage Ouest → Gare routière → Gare SNCF → Lego Ville Hôpital
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHoraires8()"
+    style="
+    background:white;
+    color:#20bfa9;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaire8"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+<!-- ♂️ 8G -->
+<div class="ligneBus bus8G">
+
+    <h3>8G ♂️</h3>
+
+    <p>
+        Le Phare → Gare routière → Gare SNCF → La Plage Est → Quartier futuriste → Aquarium Cézembre
+    </p>
+
+    <br>
+
+    <button
+    onclick="afficherHoraires8G()"
+    style="
+    background:white;
+    color:#20bfa9;
+    padding:8px;
+    border:none;
+    border-radius:10px;
+    margin-top:10px;
+    ">
+
+    🕒 Voir les horaires
+
+    </button>
+
+    <div
+    id="horaire8G"
+    style="margin-top:15px;">
+    </div>
+
+</div>
+
+</div>
+
+`;
+
+}
+
+function afficherHoraires8G(){
+
+    let bloc = document.getElementById("horaire8G");
+
+    if(!bloc){
+        return;
+    }
+
+    bloc.innerHTML = `
+
+    <div style="
+    background:white;
+    color:#14213d;
+    padding:15px;
+    border-radius:15px;
+    margin-top:10px;
+    ">
+
+        <h3>🕒 Horaires 8G</h3>
+
+        <br>
+
+        <p>
+        ♂️ 8G
+        </p>
+
+        <p>
+        Horaires à définir.
+        </p>
+
+    </div>
+
+    `;
+
+}
+
+function ouvrirBusExpress(){
+
+document.getElementById("menuPanel")
+.classList.remove("ouvert");
+
+
+document.body.innerHTML=`
+
+<div class="card">
+
+<button onclick="location.reload()">
+
+✖️ Retour
+
+</button>
+
+
+<h2>
+
+🚎 Bus Express
+
+</h2>
+
+
+<div class="ligneBus busE1">
+
+<h3>E1 ♐</h3>
+
+<p id="sensE1">
+Lego Ville Aéroport → Aquarium Cézembre → Quartier futuriste → Gare SNCF → La Plage Ouest
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('E1 ♐')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensE1()"
+style="
+background:white;
+color:#0755a5;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+<div class="ligneBus busE2">
+
+<h3>E2 ♊</h3>
+
+<p id="sensE2">
+Lego Ville École → Le Phare → Gare SNCF → Lego Ville Hôpital
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('E2 ♊')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensE2()"
+style="
+background:white;
+color:#f28c28;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+<div class="ligneBus busE3">
+
+<h3>E3 ♍</h3>
+
+<p id="sensE3">
+Lego Ville Parc d’attractions → Le Phare → Gare routière → Gare SNCF → La Plage Est
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('E3 ♍')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensE3()"
+style="
+background:white;
+color:#7bd66f;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+<div class="ligneBus busE4">
+
+<h3>E4 ♒</h3>
+
+<p id="sensE4">
+Lego Ville Hôpital → Gare SNCF → Centre commercial → Lego Ville Aéroport
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('E4 ♒')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensE4()"
+style="
+background:white;
+color:#8e44ad;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+<div class="ligneBus busE5">
+
+<h3>E5 ♓</h3>
+
+<p id="sensE5">
+La Plage Est → Gare SNCF → Lego Ville Hôpital
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('E5 ♓')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensE5()"
+style="
+background:white;
+color:#e88ab5;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+<div class="ligneBus busE6">
+
+<h3>E6 ♋</h3>
+
+<p id="sensE6">
+Lego Ville Parc d’attractions → La Plage Ouest → Gare routière → Gare SNCF → La Plage Est
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('E6 ♋')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensE6()"
+style="
+background:white;
+color:#f4d03f;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+<div class="ligneBus busE7">
+
+<h3>E7 ⛎</h3>
+
+<p id="sensE7">
+Aquarium Cézembre → Quartier futuriste → Gare SNCF → Gare routière → Le Phare → La Plage Ouest → Lego Ville Parc d’attractions
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('E7 ⛎')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSensE7()"
+style="
+background:white;
+color:#0755a5;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+`;
+
+}
+
+
+function ouvrirBus(){
+
+document.getElementById("menuPanel")
+.classList.remove("ouvert");
+
+
+document.body.innerHTML=`
+
+<div class="card">
+
+<button onclick="location.reload()">
+
+✖️ Retour
+
+</button>
+
+
+<h2>
+
+🚌 Bus
+
+</h2>
+
+
+
+<div class="ligneBus bus8">
+
+<h3>8 ♂️</h3>
+
+<p id="sens8">
+Le Phare → Lego Ville Parc d’attractions → La Plage Ouest → Gare routière → Gare SNCF → Lego Ville Hôpital
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('8 ♂️')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSens8()"
+style="
+background:white;
+color:#20bfa9;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+
+
+<div class="ligneBus bus8G">
+
+<h3>8G ♂️</h3>
+
+<p id="sens8G">
+Le Phare → Gare routière → Gare SNCF → La Plage Est → Quartier futuriste → Aquarium Cézembre
+</p>
+
+<br>
+
+<button
+class="boutonFavori"
+onclick="ajouterFavori('8G ♂️')">
+
+⭐ Ajouter aux favoris
+
+</button>
+
+<br>
+
+<button
+onclick="changerSens8G()"
+style="
+background:white;
+color:#20bfa9;
+padding:8px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+">
+
+🔁 Changer de sens
+
+</button>
+
+</div>
+
+`;
+}
+
+function afficherMeteoC1(){
+
+    let page = document.getElementById("page");
+
+    page.innerHTML = `
+
+    <div class="fiche">
+
+        <button onclick="fermerPage()">
+            ❌ Fermer
+        </button>
+
+        <h2 style="
+            color:#777;
+            margin-top:15px;
+        ">
+            ?? Météo C1
+        </h2>
+
+        <div style="
+            background:#eeeeee;
+            border-radius:15px;
+            padding:20px;
+            margin-top:15px;
+            text-align:center;
+        ">
+
+            <h3>🌦️ Météo de la ligne C1 🚠</h3>
+
+            <p>
+                📍 Gare SNCF ↔ Gare routière
+            </p>
+
+            <div id="meteoC1">
+                ⏳ Chargement de la météo...
+            </div>
+
+        </div>
+
+    </div>
+    `;
+
+    chargerMeteoC1();
+}
+
+function chargerMeteoC1(){
+
+    let meteo = document.getElementById("meteoC1");
+
+    meteo.innerHTML = `
+
+        <div style="
+            font-size:45px;
+            margin:15px;
+        ">
+            🌤️
+        </div>
+
+        <h2>☀️ Conditions météo</h2>
+
+        <p>
+            🌡️ Température : -- °C
+        </p>
+
+        <p>
+            💧 Pluie : -- %
+        </p>
+
+        <p>
+            💨 Vent : -- km/h
+        </p>
+
+        <p style="
+            margin-top:20px;
+            font-size:14px;
+            color:#666;
+        ">
+            🚠 C1 circule entre la Gare SNCF et la Gare routière.
+        </p>
+
+    `;
+}
+
+function afficherMeteo(){
+
+    document.getElementById("menuPanel")
+    .classList.remove("ouvert");
+
+    document.body.innerHTML = `
+
+    <div class="card">
+
+        <button onclick="location.reload()">
+            ✖️ Retour
+        </button>
+
+        <h2 style="margin-top:20px;">
+            🌦️ Météo du Havre
+        </h2>
+
+        <div id="meteoC1"
+        style="
+            background:#eeeeee;
+            border-radius:20px;
+            padding:20px;
+            margin-top:20px;
+            text-align:center;
+        ">
+
+            ⏳ Chargement de la météo...
+
+        </div>
+
+        <div id="previsionsHoraires"
+        style="
+            margin-top:20px;
+        ">
+
+            ⏳ Chargement des prévisions...
+
+        </div>
+
+    </div>
+
+    `;
+
+    chargerMeteoLeHavre();
+}
+
+
+async function chargerMeteoLeHavre(){
+
+    const meteo = document.getElementById("meteoC1");
+    const previsions =
+        document.getElementById("previsionsHoraires");
+
+    try{
+
+        // 📍 Le Havre
+        const latitude = 49.4944;
+        const longitude = 0.1079;
+
+        const url =
+        "https://api.open-meteo.com/v1/forecast" +
+        "?latitude=" + latitude +
+        "&longitude=" + longitude +
+        "&current=temperature_2m,weather_code,wind_speed_10m" +
+        "&hourly=temperature_2m,weather_code,precipitation_probability,wind_speed_10m" +
+        "&timezone=Europe%2FParis" +
+        "&forecast_days=2";
+
+        const reponse = await fetch(url);
+
+        if(!reponse.ok){
+            throw new Error("Erreur météo");
+        }
+
+        const data = await reponse.json();
+
+        // =========================
+        // 🌦️ MÉTÉO ACTUELLE
+        // =========================
+
+        const temperature =
+            data.current.temperature_2m;
+
+        const vent =
+    data.current.wind_speed_10m;
+
+const code =
+    data.current.weather_code;
+
+
+/* 🌦️ Analyse automatique pour C1 🚠 */
+
+analyserMeteoC1(code, vent);
+
+
+        const resultatMeteo =
+            obtenirDescriptionMeteo(code);
+
+
+        meteo.innerHTML = `
+
+            <div style="font-size:55px;">
+                ${resultatMeteo.icone}
+            </div>
+
+            <h2 style="margin:10px 0;">
+                ${temperature} °C
+            </h2>
+
+            <p style="font-size:18px;">
+                ${resultatMeteo.description}
+            </p>
+
+            <hr style="margin:20px 0;">
+
+            <p>
+                💨 Vent :
+                <strong>${vent} km/h</strong>
+            </p>
+
+            <p style="
+                margin-top:10px;
+                color:#666;
+            ">
+                📍 Le Havre
+            </p>
+
+            <p style="
+                margin-top:10px;
+                color:#666;
+            ">
+                🚠 Conditions météo pour C1
+            </p>
+
+        `;
+
+
+        // =========================
+        // 🕐 PRÉVISIONS HORAIRES
+        // =========================
+
+        let maintenant =
+            new Date();
+
+        let heureActuelle =
+            maintenant.getHours();
+
+
+        let html = `
+
+        <div style="
+            background:white;
+            border-radius:20px;
+            padding:18px;
+            box-shadow:0 3px 10px #0002;
+        ">
+
+            <h3 style="
+                margin-bottom:15px;
+            ">
+                🕐 Prévisions heure par heure
+            </h3>
+
+        `;
+
+
+        // Affiche les prochaines 24 heures
+        for(
+            let i = heureActuelle;
+            i < heureActuelle + 24;
+            i++
+        ){
+
+            if(i >= data.hourly.time.length){
+                break;
+            }
+
+
+            const date =
+                new Date(
+                    data.hourly.time[i]
+                );
+
+
+            const heure =
+                String(
+                    date.getHours()
+                ).padStart(2,"0");
+
+
+            const temp =
+                data.hourly.temperature_2m[i];
+
+
+            const pluie =
+                data.hourly.precipitation_probability[i];
+
+
+            const ventHoraire =
+                data.hourly.wind_speed_10m[i];
+
+
+            const codeHoraire =
+                data.hourly.weather_code[i];
+
+
+            const meteoHoraire =
+                obtenirDescriptionMeteo(
+                    codeHoraire
+                );
+
+
+            html += `
+
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:10px;
+                padding:13px 5px;
+                border-bottom:1px solid #ddd;
+            ">
+
+                <div style="
+                    min-width:50px;
+                    font-weight:bold;
+                ">
+                    ${heure}h
+                </div>
+
+
+                <div style="
+                    font-size:28px;
+                ">
+                    ${meteoHoraire.icone}
+                </div>
+
+
+                <div style="
+                    flex:1;
+                    text-align:left;
+                ">
+
+                    <strong>
+                        ${temp} °C
+                    </strong>
+
+                    <br>
+
+                    <span style="
+                        font-size:13px;
+                        color:#666;
+                    ">
+                        ${meteoHoraire.description}
+                    </span>
+
+                </div>
+
+
+                <div style="
+                    font-size:13px;
+                    text-align:right;
+                ">
+
+                    🌧️ ${pluie}%
+
+                    <br>
+
+                    💨 ${ventHoraire}
+
+                </div>
+
+            </div>
+
+            `;
+
+        }
+
+
+        html += `
+
+        </div>
+
+        `;
+
+
+        previsions.innerHTML = html;
+
+
+    }
+    catch(erreur){
+
+        meteo.innerHTML = `
+
+            ❌ Impossible de récupérer la météo.
+
+            <br><br>
+
+            Vérifiez votre connexion Internet.
+
+        `;
+
+
+        previsions.innerHTML = "";
+
+        console.error(erreur);
+
+    }
+
+}
+
+
+// =====================================
+// 🌦️ CODES MÉTÉO
+// =====================================
+
+function obtenirDescriptionMeteo(code){
+
+    if(code === 0){
+
+        return {
+            icone:"☀️",
+            description:"Ciel dégagé"
+        };
+
+    }
+
+
+    if(code === 1){
+
+        return {
+            icone:"🌤️",
+            description:"Peu nuageux"
+        };
+
+    }
+
+
+    if(code === 2){
+
+        return {
+            icone:"⛅",
+            description:"Partiellement nuageux"
+        };
+
+    }
+
+
+    if(code === 3){
+
+        return {
+            icone:"☁️",
+            description:"Couvert"
+        };
+
+    }
+
+
+    if(code === 45 || code === 48){
+
+        return {
+            icone:"🌫️",
+            description:"Brouillard"
+        };
+
+    }
+
+
+    if(code >= 51 && code <= 57){
+
+        return {
+            icone:"🌦️",
+            description:"Bruine"
+        };
+
+    }
+
+
+    if(code >= 61 && code <= 67){
+
+        return {
+            icone:"🌧️",
+            description:"Pluie"
+        };
+
+    }
+
+
+    if(code >= 71 && code <= 77){
+
+        return {
+            icone:"❄️",
+            description:"Neige"
+        };
+
+    }
+
+
+    if(code >= 80 && code <= 82){
+
+        return {
+            icone:"🌦️",
+            description:"Averses"
+        };
+
+    }
+
+
+    if(code >= 85 && code <= 86){
+
+        return {
+            icone:"🌨️",
+            description:"Averses de neige"
+        };
+
+    }
+
+
+    if(code >= 95){
+
+        return {
+            icone:"⛈️",
+            description:"Orage"
+        };
+
+    }
+
+
+    return {
+        icone:"🌤️",
+        description:"Conditions variables"
+    };
+
+}
+
+/* =========================================
+   🌦️ SÉCURITÉ MÉTÉO — SIMULATEUR C1 🚠
+   ========================================= */
+
+let c1ArreteParMeteo = false;
+
+
+/*
+   Analyse automatiquement la météo
+*/
+
+function analyserMeteoC1(code, vent){
+
+    let danger = false;
+    let message = "";
+
+    /*
+       ⛈️ Orage
+       Codes Open-Meteo : 95, 96, 99
+    */
+
+    if(code >= 95){
+
+        danger = true;
+
+        message =
+        "⛈️ Orage détecté";
+
+    }
+
+
+    /*
+       💨 Vent très fort
+       Seuil automatique : 70 km/h
+    */
+
+    else if(vent >= 70){
+
+        danger = true;
+
+        message =
+        "💨 Vent très fort détecté";
+
+    }
+
+
+    /*
+       🚠 Décision automatique
+    */
+
+    if(danger){
+
+        arreterC1Meteo(message);
+
+    }else{
+
+        reprendreC1Meteo();
+
+    }
+
+}
+
+
+/*
+   🔴 ARRÊT AUTOMATIQUE DU C1
+*/
+
+function arreterC1Meteo(message){
+
+    if(c1ArreteParMeteo){
+        return;
+    }
+
+    c1ArreteParMeteo = true;
+
+
+    console.log(
+        "🚠 C1 arrêté automatiquement : " +
+        message
+    );
+
+
+    /*
+       🔴 État du simulateur
+    */
+
+    let etat =
+        document.getElementById("etatC1");
+
+    if(etat){
+
+        etat.innerHTML = `
+
+            <div style="
+                background:#e53935;
+                color:white;
+                padding:15px;
+                border-radius:15px;
+                text-align:center;
+            ">
+
+                <strong>
+                    🔴 C1 🚠 ARRÊTÉ
+                </strong>
+
+                <br><br>
+
+                🌦️ ${message}
+
+                <br>
+
+                ⚠️ Circulation interrompue
+                automatiquement.
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+       Si ton simulateur possède une fonction
+       pour arrêter la circulation, elle pourra
+       être appelée ici.
+    */
+
+    if(typeof arreterCirculationC1 === "function"){
+
+        arreterCirculationC1();
+
+    }
+
+}
+
+
+/*
+   🟢 REPRISE AUTOMATIQUE
+*/
+
+function reprendreC1Meteo(){
+
+    if(!c1ArreteParMeteo){
+        return;
+    }
+
+    c1ArreteParMeteo = false;
+
+
+    console.log(
+        "🟢 C1 reprend automatiquement"
+    );
+
+
+    let etat =
+        document.getElementById("etatC1");
+
+    if(etat){
+
+        etat.innerHTML = `
+
+            <div style="
+                background:#22a447;
+                color:white;
+                padding:15px;
+                border-radius:15px;
+                text-align:center;
+            ">
+
+                <strong>
+                    🟢 C1 🚠 CIRCULATION NORMALE
+                </strong>
+
+                <br><br>
+
+                🌤️ Conditions météorologiques
+                redevenues normales.
+
+            </div>
+
+        `;
+
+    }
+
+
+    /*
+       Reprise du simulateur
+    */
+
+    if(typeof reprendreCirculationC1 === "function"){
+
+        reprendreCirculationC1();
+
+    }
+
+}
+
+/* =========================================
+   🆕 NOUVEAUTÉS
+   ========================================= */
+
+function ouvrirNouveautes(){
+
+    document.getElementById("menuPanel")
+    .classList.remove("ouvert");
+
+    document.body.innerHTML = `
+
+    <div class="card">
+
+        <button onclick="location.reload()">
+            ✖️ Retour
+        </button>
+
+        <h2 style="margin-top:20px;">
+            🆕 Nouveautés
+        </h2>
+
+        <p style="
+            color:#666;
+            margin-bottom:20px;
+        ">
+            Découvrez les dernières améliorations
+            de LEGO Ville Mobilités.
+        </p>
+
+
+        <!-- 🌦️ MÉTÉO C1 -->
+
+        <div class="ligneBus ligneC1">
+
+            <h3>
+                🌦️ Météo C1 🚠
+            </h3>
+
+            <p>
+                La météo est maintenant intégrée
+                à la ligne C1.
+            </p>
+
+            <p style="
+                font-size:14px;
+                color:#666;
+            ">
+                Les conditions météorologiques peuvent
+                être analysées automatiquement.
+            </p>
+
+        </div>
+
+
+        <!-- 🌦️ PAGE MÉTÉO -->
+
+        <div class="ligneBus">
+
+            <h3>
+                🌦️ Nouvelle page Météo
+            </h3>
+
+            <p>
+                Consultez la météo actuelle du Havre
+                et les prévisions heure par heure.
+            </p>
+
+            <button
+            onclick="afficherMeteo()"
+            style="
+            background:white;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+                🌦️ Voir la météo
+
+            </button>
+
+        </div>
+
+
+        <!-- ⚠️ TRAFIC -->
+
+        <div class="ligneBus">
+
+            <h3>
+                ⚠️ Infos trafic améliorées
+            </h3>
+
+            <p>
+                L'état de chaque ligne peut maintenant
+                être modifié manuellement.
+            </p>
+
+            <p>
+                🟢 Circulation normale<br>
+                🟠 Perturbations<br>
+                🔴 Fortes perturbations
+            </p>
+
+            <button
+            onclick="ouvrirTrafic()"
+            style="
+            background:white;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+                ⚠️ Voir le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- 🕒 HORAIRES -->
+
+        <div class="ligneBus">
+
+            <h3>
+                🕒 Nouvelle page Horaires
+            </h3>
+
+            <p>
+                Retrouvez les horaires des lignes
+                depuis une seule page.
+            </p>
+
+            <p>
+                🚠 C1 · 🟢 T1 · 🔴 T2 · 🔵 T3 · 🟣 T4
+            </p>
+
+            <p>
+                ♐ E1 · ♊ E2 · ♍ E3 · ♒ E4
+            </p>
+
+            <button
+            onclick="ouvrirHoraires()"
+            style="
+            background:white;
+            color:#14213d;
+            padding:9px 14px;
+            border:none;
+            border-radius:10px;
+            margin-top:10px;
+            ">
+
+                🕒 Voir les horaires
+
+            </button>
+
+        </div>
+
+
+        <!-- 🔄 CHANGEMENT DE SENS -->
+
+        <div class="ligneBus">
+
+            <h3>
+                🔄 Changement de sens
+            </h3>
+
+            <p>
+                Les lignes Bus Express disposent
+                maintenant d'un bouton permettant
+                de changer de sens.
+            </p>
+
+            <p>
+                ♐ E1 · ♊ E2 · ♍ E3 · ♒ E4
+            </p>
+
+        </div>
+
+
+        <!-- ⭐ FAVORIS -->
+
+        <div class="ligneBus">
+
+            <h3>
+                ⭐ Favoris
+            </h3>
+
+            <p>
+                Ajoutez vos lignes préférées pour
+                les retrouver plus facilement.
+            </p>
+
+        </div>
+
+
+        <!-- 🚀 APPLICATION -->
+
+        <div style="
+            background:#eeeeee;
+            padding:15px;
+            border-radius:15px;
+            margin-top:20px;
+            text-align:center;
+        ">
+
+            <h3>
+                🚀 LEGO Ville Mobilités
+            </h3>
+
+            <p>
+                Toujours plus de fonctionnalités
+                pour faciliter vos déplacements
+                dans LEGO Ville !
+            </p>
+
+        </div>
+
+
+        <p style="
+            text-align:center;
+            color:#888;
+            font-size:13px;
+            margin-top:20px;
+        ">
+
+            🆕 Dernière mise à jour :
+            13 août 2026
+
+        </p>
+
+    </div>
+
+    `;
+}
+
+function ouvrirTrafic(){
+
+    document.getElementById("menuPanel")
+    .classList.remove("ouvert");
+
+    document.body.innerHTML = `
+
+    <div class="card">
+
+        <button onclick="location.reload()">
+            ✖️ Retour
+        </button>
+
+        <h2 style="margin-top:20px;">
+            ⚠️ Infos trafic
+        </h2>
+
+        <p style="
+            color:#666;
+            margin-bottom:20px;
+        ">
+            Gestion manuelle du trafic de LEGO Ville Mobilités.
+        </p>
+
+
+        <!-- 🟢 T1 -->
+
+        <div class="ligneBus ligneT1">
+
+            <h3>T1 🟢</h3>
+
+            <p id="traficT1">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficT1()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- 🔴 T2 -->
+
+        <div class="ligneBus ligneT2">
+
+            <h3>T2 🔴</h3>
+
+            <p id="traficT2">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficT2()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- 🔵 T3 -->
+
+        <div class="ligneBus ligneT3">
+
+            <h3>T3 🔵</h3>
+
+            <p id="traficT3">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficT3()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- 🟣 T4 -->
+
+        <div class="ligneBus ligneT4">
+
+            <h3>T4 🟣</h3>
+
+            <p id="traficT4">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficT4()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♐ E1 -->
+
+        <div class="ligneBus busE1">
+
+            <h3>E1 ♐</h3>
+
+            <p id="traficE1">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficE1()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♊ E2 -->
+
+        <div class="ligneBus busE2">
+
+            <h3>E2 ♊</h3>
+
+            <p id="traficE2">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficE2()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♍ E3 -->
+
+        <div class="ligneBus busE3">
+
+            <h3>E3 ♍</h3>
+
+            <p id="traficE3">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficE3()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♒ E4 -->
+
+        <div class="ligneBus busE4">
+
+            <h3>E4 ♒</h3>
+
+            <p id="traficE4">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficE4()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♓ E5 -->
+
+        <div class="ligneBus busE5">
+
+            <h3>E5 ♓</h3>
+
+            <p id="traficE5">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficE5()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♋ E6 -->
+
+        <div class="ligneBus busE6">
+
+            <h3>E6 ♋</h3>
+
+            <p id="traficE6">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficE6()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ⛎ E7 -->
+
+        <div class="ligneBus busE7">
+
+            <h3>E7 ⛎</h3>
+
+            <p id="traficE7">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTraficE7()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♂️ 8 -->
+
+        <div class="ligneBus bus8">
+
+            <h3>8 ♂️</h3>
+
+            <p id="trafic8">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTrafic8()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+
+        <!-- ♂️ 8G -->
+
+        <div class="ligneBus bus8G">
+
+            <h3>8G ♂️</h3>
+
+            <p id="trafic8G">
+                🟢 Circulation normale
+            </p>
+
+            <button
+            onclick="changerTrafic8G()"
+            style="
+            background:white;
+            color:#14213d;
+            margin-top:10px;
+            ">
+
+                ⚠️ Modifier le trafic
+
+            </button>
+
+        </div>
+
+    </div>
+
+    `;
+}
+
+/* =========================================
+   🔔 NOTIFICATIONS TRAFIC
+   Toutes les lignes sauf C1 🚠
+   ========================================= */
+
+let notificationsTrafic = JSON.parse(
+    localStorage.getItem("notificationsTrafic") || "{}"
+);
+
+
+/* 🔔 Enregistre le trafic d'une ligne */
+
+function definirTrafic(ligne, niveau){
+
+    /*
+       C1 🚠 exclue du système manuel
+    */
+
+    if(ligne === "C1 🚠"){
+        return;
+    }
+
+    notificationsTrafic[ligne] = niveau;
+
+    localStorage.setItem(
+        "notificationsTrafic",
+        JSON.stringify(notificationsTrafic)
+    );
+
+    afficherNotificationsCloche();
+}
+
+
+/* 🟢 Normal */
+
+function traficNormal(ligne){
+
+    definirTrafic(ligne, "normal");
+
+}
+
+
+/* 🟠 Perturbations */
+
+function traficPerturbe(ligne){
+
+    definirTrafic(ligne, "perturbations");
+
+}
+
+
+/* 🔴 Fortes perturbations */
+
+function traficFortementPerturbe(ligne){
+
+    definirTrafic(ligne, "fortes");
+
+}
+
+
+/* 🔔 OUVRIR LES NOTIFICATIONS */
+
+function ouvrirNotifications(){
+
+    document.getElementById("menuPanel")
+    ?.classList.remove("ouvert");
+
+    document.body.innerHTML = `
+
+    <div class="card">
+
+        <button onclick="location.reload()">
+            ✖️ Retour
+        </button>
+
+        <h2 style="margin-top:20px;">
+            🔔 Notifications
+        </h2>
+
+        <div id="listeNotifications"
+             style="margin-top:20px;">
+
+            ⏳ Chargement...
+
+        </div>
+
+    </div>
+
+    `;
+
+    afficherNotificationsPage();
+
+}
+
+
+/* 📋 Affichage de la page notifications */
+
+function afficherNotificationsPage(){
+
+    const zone =
+        document.getElementById("listeNotifications");
+
+    if(!zone){
+        return;
+    }
+
+    let html = "";
+
+    const lignes =
+        Object.keys(notificationsTrafic);
+
+    lignes.forEach(function(ligne){
+
+        const niveau =
+            notificationsTrafic[ligne];
+
+        if(niveau === "perturbations"){
+
+            html += `
+
+            <div class="ligneBus"
+                 style="
+                    background:#ff9800;
+                    color:white;
+                 ">
+
+                <h3>
+                    ⚠️ ${ligne}
+                </h3>
+
+                <p style="
+                    margin-top:10px;
+                    font-weight:normal;
+                ">
+                    🟠 Perturbations sur la ligne ${ligne}.
+                </p>
+
+            </div>
+
+            `;
+
+        }
+
+
+        if(niveau === "fortes"){
+
+            html += `
+
+            <div class="ligneBus"
+                 style="
+                    background:#e53935;
+                    color:white;
+                 ">
+
+                <h3>
+                    ⚠️ ${ligne}
+                </h3>
+
+                <p style="
+                    margin-top:10px;
+                    font-weight:normal;
+                ">
+                    🔴 Fortes perturbations sur la ligne ${ligne}.
+                </p>
+
+            </div>
+
+            `;
+
+        }
+
+    });
+
+
+    if(html === ""){
+
+        html = `
+
+        <div style="
+            background:#eeeeee;
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+        ">
+
+            <div style="font-size:45px;">
+                🔔
+            </div>
+
+            <h3>
+                Aucune nouvelle notification.
+            </h3>
+
+        </div>
+
+        `;
+
+    }
+
+
+    html += `
+
+    <button
+        onclick="marquerNotificationsLues()"
+        style="
+            margin-top:20px;
+            background:#0755c9;
+        "
+    >
+        ✅ Marquer comme lu
+    </button>
+
+    `;
+
+
+    zone.innerHTML = html;
+
+}
+
+
+/* 🧹 MARQUER COMME LU */
+
+function marquerNotificationsLues(){
+
+    localStorage.removeItem("notificationsTrafic");
+
+    notificationsTrafic = {};
+
+    afficherNotificationsCloche();
+
+    const zone =
+        document.getElementById("listeNotifications");
+
+    if(zone){
+
+        zone.innerHTML = `
+
+        <div style="
+            background:#eeeeee;
+            padding:20px;
+            border-radius:15px;
+            text-align:center;
+        ">
+
+            🔔 Aucune nouvelle notification.
+
+        </div>
+
+        `;
+
+    }
+
+}
+
+
+/* =========================================
+   🔔 COMPTEUR DES NOTIFICATIONS
+   ========================================= */
+
+function afficherNotificationsCloche(){
+
+    const badge =
+        document.getElementById("badgeNotifications");
+
+    if(!badge){
+        return;
+    }
+
+    let nombre = 0;
+
+    Object.keys(notificationsTrafic).forEach(function(ligne){
+
+        const niveau =
+            notificationsTrafic[ligne];
+
+        if(
+            niveau === "perturbations" ||
+            niveau === "fortes"
+        ){
+
+            nombre++;
+
+        }
+
+    });
+
+
+    if(nombre > 0){
+
+        badge.textContent = nombre;
+        badge.style.display = "flex";
+
+    }else{
+
+        badge.textContent = "0";
+        badge.style.display = "none";
+
+    }
+
+}
+
+
+/* 🔔 Mise à jour au chargement */
+
+document.addEventListener("DOMContentLoaded", function(){
+
+    afficherNotificationsCloche();
+
+});
+
+function ouvrirNavettes(){
+
+    document.getElementById("menuPanel")
+    .classList.remove("ouvert");
+
+    document.body.innerHTML = `
+
+    <div class="card">
+
+        <button onclick="location.reload()">
+            ✖️ Retour
+        </button>
+
+        <h2>
+            🚕 Navettes
+        </h2>
+
+        <div class="ligneBus">
+
+            <h3>NVC ⭕</h3>
+
+            <p>
+                Navette Centre-Ville
+            </p>
+
+            <p>
+                🕒 Service : 04h30 → 00h30
+            </p>
+
+        </div>
+
+        <div class="ligneBus">
+
+            <h3>TAD 🌐</h3>
+
+            <p>
+                Transport à la demande
+            </p>
+
+            <button onclick="reservationTAD()">
+                🌐 Réserver un TAD
+            </button>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+function ouvrirAccueil(){
+
+    location.reload();
+
+}
+
+</script>
+
+<script>
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
+
+</body>
+
+</html>
